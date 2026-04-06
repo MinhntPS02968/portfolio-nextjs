@@ -388,7 +388,7 @@ $pf-outline-variant: rgba(71, 72, 76, 0.15);
         font-size: 0.875rem;
     }
     
-    &__link {
+    &__link.nav-link {
         color: #abaab0;
         transition: all 0.3s cubic-bezier(0.23,1,0.32,1);
         text-decoration: none;
@@ -397,7 +397,7 @@ $pf-outline-variant: rgba(71, 72, 76, 0.15);
             color: $pf-primary;
         }
         
-        &--active {
+        &--active, &.active {
             color: $pf-primary;
             font-weight: bold;
             text-shadow: 0 0 15px rgba(15, 109, 243, 0.3);

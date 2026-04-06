@@ -1,51 +1,79 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const menuItems = [
-  { href: "#hero", text: "Home" },
-  { href: "#projects", text: "Projects" },
-  { href: "#skills", text: "Skills" },
-  { href: "#contact", text: "Contact" },
+  { href: "hero", text: "Home" },
+  { href: "skills", text: "Skills" },
+  { href: "projects", text: "Projects" },
+  { href: "contact", text: "Contact" },
 ];
 
 export default function Header() {
-  const pathname = usePathname();
+  const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
-    // Close offcanvas on window resize or path change
-    const offcanvasElement = document.getElementById("pfOffcanvas");
-    if (offcanvasElement && typeof window !== "undefined") {
-      const bootstrap = (window as any).bootstrap;
-      if (bootstrap && bootstrap.Offcanvas) {
-        const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
-        if (offcanvas) {
-          offcanvas.hide();
+    // 1. Setup IntersectionObserver for perfect React ScrollSpy
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
         }
+      });
+    }, {
+      root: null,
+      rootMargin: "-20% 0px -60% 0px", // Kích hoạt sớm hơn khi roll
+      threshold: 0
+    });
+
+    // Theo dõi toàn bộ các section ID
+    menuItems.forEach((item) => {
+      const section = document.getElementById(item.href);
+      if (section) observer.observe(section);
+    });
+
+    // 2. Handle offcanvas links & dismiss behavior
+    const offcanvasElement = document.getElementById("pfOffcanvas");
+    if (typeof window !== "undefined") {
+      const bootstrap = (window as any).bootstrap;
+      if (offcanvasElement) {
+        const links = document.querySelectorAll('#pfOffcanvas .nav-link');
+        links.forEach(link => {
+          link.addEventListener('click', () => {
+            if (bootstrap && bootstrap.Offcanvas) {
+              const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
+              if (offcanvas) {
+                offcanvas.hide();
+              }
+            }
+          });
+        });
       }
     }
-  }, [pathname]);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <header className="pf-header fixed-top w-100 pf-glass-blur border-bottom border-secondary border-opacity-10">
       <div className="container-xxl px-4 py-3 d-flex align-items-center justify-content-between">
         {/* Logo */}
-        <Link href="/" className="text-decoration-none">
+        <a href="#hero" className="text-decoration-none">
           <div className="pf-header__logo fs-4 fw-bold">The Digital Architect</div>
-        </Link>
+        </a>
 
         {/* Desktop Navigation */}
-        <nav className="pf-header__nav d-none d-md-flex align-items-center gap-4 text-uppercase fw-semibold tracking-tight">
+        <nav className="pf-header__nav d-none d-md-flex align-items-center gap-4 text-uppercase fw-semibold tracking-tight nav">
           {menuItems.map((item) => (
-            <Link 
+            <a 
               key={item.href} 
-              href={item.href}
-              className={`pf-header__link ${pathname === item.href ? 'pf-header__link--active' : ''}`}
+              href={`#${item.href}`}
+              className={`nav-link pf-header__link ${activeSection === item.href ? 'active' : ''}`}
             >
               {item.text}
-            </Link>
+            </a>
           ))}
         </nav>
 
@@ -84,16 +112,16 @@ export default function Header() {
           ></button>
         </div>
         <div className="offcanvas-body">
-          <ul className="list-unstyled pf-header__nav text-uppercase d-flex flex-column gap-3 fs-5 mt-4">
+          <ul className="list-unstyled pf-header__nav text-uppercase d-flex flex-column gap-3 fs-5 mt-4 nav">
             {menuItems.map((item) => (
               <li key={item.href}>
-                <Link 
-                  href={item.href}
-                  className="pf-header__link d-block w-100 py-2 border-bottom border-secondary border-opacity-10"
+                <a 
+                  href={`#${item.href}`}
+                  className={`nav-link pf-header__link d-block w-100 py-2 border-bottom border-secondary border-opacity-10 ${activeSection === item.href ? 'active' : ''}`}
                   data-bs-dismiss="offcanvas"
                 >
                   {item.text}
-                </Link>
+                </a>
               </li>
             ))}
             <li className="mt-4">
