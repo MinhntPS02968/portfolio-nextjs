@@ -53,7 +53,7 @@ export default function HomePage() {
   return (
       <>
 
-          <div className="corex-landing">
+          <div className="landing">
               <Header/>
               <main className="portfolio-main mx-auto bg-black border-top">
                   <HeroSection />

@@ -156,7 +156,7 @@ $pf-outline-variant: rgba(71, 72, 76, 0.15);
     }
 
     &__headline {
-        font-size: clamp(3rem, 5vw, 4.5rem);
+        font-size: clamp(2rem, 5vw, 4.5rem);
         line-height: 1.1;
         letter-spacing: -0.02em;
         font-family: 'Space Grotesk', sans-serif;
@@ -168,7 +168,7 @@ $pf-outline-variant: rgba(71, 72, 76, 0.15);
     }
 
     &__lead {
-        font-size: 1.125rem;
+        font-size: 1rem;
         color: #abaab0;
         max-width: 42rem;
     }

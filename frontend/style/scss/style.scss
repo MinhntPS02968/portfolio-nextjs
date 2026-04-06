@@ -1,3 +1,6 @@
 @use "./variables.scss" as *;
 @use "./breakpoint.scss" as *;
 @use "./portfolio.scss" as *;
+.landing {
+    overflow-x: hidden;
+}

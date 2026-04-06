@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const menuItems = [
   { href: "hero", text: "Home" },
@@ -11,6 +11,15 @@ const menuItems = [
 
 export default function Header() {
   const [activeSection, setActiveSection] = useState("hero");
+  const offcanvasRef = useRef<HTMLDivElement>(null);
+  const bsOffcanvas = useRef<any>(null);
+
+  // Helper hàm đóng menu
+  const closeOffcanvas = () => {
+    if (bsOffcanvas.current) {
+        bsOffcanvas.current.hide();
+    }
+  };
 
   useEffect(() => {
     // 1. Setup IntersectionObserver for perfect React ScrollSpy
@@ -32,22 +41,14 @@ export default function Header() {
       if (section) observer.observe(section);
     });
 
-    // 2. Handle offcanvas links & dismiss behavior
-    const offcanvasElement = document.getElementById("pfOffcanvas");
-    if (typeof window !== "undefined") {
+    // 2. Handle Offcanvas Initialization
+    if (typeof window !== "undefined" && offcanvasRef.current) {
       const bootstrap = (window as any).bootstrap;
-      if (offcanvasElement) {
-        const links = document.querySelectorAll('#pfOffcanvas .nav-link');
-        links.forEach(link => {
-          link.addEventListener('click', () => {
-            if (bootstrap && bootstrap.Offcanvas) {
-              const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
-              if (offcanvas) {
-                offcanvas.hide();
-              }
-            }
-          });
-        });
+      if (bootstrap && bootstrap.Offcanvas) {
+          // Khởi tạo instance duy nhất
+          if (!bsOffcanvas.current) {
+              bsOffcanvas.current = new bootstrap.Offcanvas(offcanvasRef.current);
+          }
       }
     }
 
@@ -57,8 +58,8 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="pf-header fixed-top w-100 pf-glass-blur border-bottom border-secondary border-opacity-10">
-      <div className="container-xxl px-4 py-3 d-flex align-items-center justify-content-between">
+    <header className="pf-header fixed-top pf-glass-blur">
+      <div className="container px-4 py-3 d-flex align-items-center justify-content-between">
         {/* Logo */}
         <a href="#hero" className="text-decoration-none">
           <div className="pf-header__logo fs-4 fw-bold">The Digital Architect</div>
@@ -101,13 +102,14 @@ export default function Header() {
         tabIndex={-1} 
         id="pfOffcanvas" 
         aria-labelledby="pfOffcanvasLabel"
+        ref={offcanvasRef}
       >
         <div className="offcanvas-header border-bottom border-secondary border-opacity-25">
           <h5 className="offcanvas-title pf-header__logo fs-5" id="pfOffcanvasLabel">The Digital Architect</h5>
           <button 
             type="button" 
             className="btn-close btn-close-white" 
-            data-bs-dismiss="offcanvas" 
+            onClick={closeOffcanvas}
             aria-label="Close"
           ></button>
         </div>
@@ -118,7 +120,7 @@ export default function Header() {
                 <a 
                   href={`#${item.href}`}
                   className={`nav-link pf-header__link d-block w-100 py-2 border-bottom border-secondary border-opacity-10 ${activeSection === item.href ? 'active' : ''}`}
-                  data-bs-dismiss="offcanvas"
+                  onClick={closeOffcanvas}
                 >
                   {item.text}
                 </a>
