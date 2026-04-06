@@ -452,16 +452,16 @@ $pf-outline-variant: rgba(71, 72, 76, 0.15);
     }
     
     &__link.nav-link {
-        color: #abaab0;
+        color: #abaab0 !important;
         transition: all 0.3s cubic-bezier(0.23,1,0.32,1);
         text-decoration: none;
         
         &:hover {
-            color: $pf-primary;
+            color: $pf-primary !important;
         }
         
         &--active, &.active {
-            color: $pf-primary;
+            color: $pf-primary !important;
             font-weight: bold;
             text-shadow: 0 0 15px rgba(15, 109, 243, 0.3);
         }
