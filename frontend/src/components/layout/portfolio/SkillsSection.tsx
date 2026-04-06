@@ -1,8 +1,78 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function SkillsSection() {
+    const container = useRef<HTMLDivElement>(null);
+
+    useGSAP(() => {
+        // Debug: Kiểm tra sự tồn tại của các Skill Cards
+        const skillCards = gsap.utils.toArray('.pf-skill-card');
+        console.log('GSAP Skills Init - Skill Cards found:', skillCards.length);
+
+        // Đảm bảo ban đầu các phần tử hiện ra để tránh lỗi mất hoàn toàn
+        // (Nếu GSAP không tìm thấy phần tử, ít nhất người dùng vẫn thấy giao diện rỗng thay vì bị ẩn vĩnh viễn)
+        gsap.set(['.pf-skills__header', '.pf-skill-card', '.pf-timeline__item'], { autoAlpha: 1 });
+
+        // Section Header
+        gsap.fromTo('.pf-skills__header', 
+            { y: 50, autoAlpha: 0 },
+            {
+                scrollTrigger: {
+                    trigger: '.pf-skills__header',
+                    start: 'top 85%',
+                },
+                y: 0,
+                autoAlpha: 1,
+                duration: 1,
+                ease: 'power3.out',
+            }
+        );
+
+        // Skill Cards Stagger
+        gsap.fromTo('.pf-skill-card', 
+            { y: 60, autoAlpha: 0 },
+            {
+                scrollTrigger: {
+                    trigger: '.pf-skills__matrix',
+                    start: 'top 80%',
+                },
+                y: 0,
+                autoAlpha: 1,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: 'power2.out',
+                clearProps: 'all'
+            }
+        );
+
+        // Timeline Items
+        gsap.utils.toArray<HTMLElement>('.pf-timeline__item').forEach((item) => {
+            gsap.fromTo(item, 
+                { x: item.classList.contains('flex-md-row-reverse') ? 50 : -50, autoAlpha: 0 },
+                {
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 90%',
+                    },
+                    x: 0,
+                    autoAlpha: 1,
+                    duration: 1,
+                    ease: 'power3.out',
+                }
+            );
+        });
+
+        // Sync tọa độ ScrollTrigger
+        ScrollTrigger.refresh();
+
+    }, { scope: container });
+
     return (
-        <section className="pf-skills container py-5" id="skills">
+        <section className="pf-skills container py-5" id="skills" ref={container}>
             <header className="pf-skills__header position-relative mb-5 pt-5 text-center">
                 <div className="pf-skills__header-bg position-absolute top-0 start-50 translate-middle-x pe-none mt-n5"></div>
                 <div className="d-flex flex-column gap-3 align-items-center">

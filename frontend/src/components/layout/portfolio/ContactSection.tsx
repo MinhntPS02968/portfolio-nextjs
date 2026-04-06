@@ -1,8 +1,89 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function ContactSection() {
+    const container = useRef<HTMLDivElement>(null);
+
+    useGSAP(() => {
+        // Debug: Kiểm tra sự tồn tại
+        const contactItems = gsap.utils.toArray('.pf-contact-info');
+        console.log('GSAP Contact Init - Info Items found:', contactItems.length);
+
+        // Đảm bảo ban đầu các phần tử hiện ra để tránh lỗi mất hoàn toàn
+        gsap.set(['.pf-contact__header', '.pf-contact-info', '.pf-availability', '.pf-contact-form'], { autoAlpha: 1 });
+
+        // Header
+        gsap.fromTo('.pf-contact__header', 
+            { y: 30, autoAlpha: 0 },
+            {
+                scrollTrigger: {
+                    trigger: '.pf-contact__header',
+                    start: 'top 85%',
+                },
+                y: 0,
+                autoAlpha: 1,
+                duration: 1,
+                ease: 'power3.out',
+            }
+        );
+
+        // Contact Info Items Stagger
+        gsap.fromTo('.pf-contact-info', 
+            { x: -30, autoAlpha: 0 },
+            {
+                scrollTrigger: {
+                    trigger: '.pf-contact-info',
+                    start: 'top 90%',
+                },
+                x: 0,
+                autoAlpha: 1,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: 'back.out(1.7)',
+            }
+        );
+
+        // Availability Card
+        gsap.fromTo('.pf-availability', 
+            { scale: 0.9, autoAlpha: 0 },
+            {
+                scrollTrigger: {
+                    trigger: '.pf-availability',
+                    start: 'top 95%',
+                },
+                scale: 1,
+                autoAlpha: 1,
+                duration: 1,
+                ease: 'power3.out',
+            }
+        );
+
+        // Contact Form
+        gsap.fromTo('.pf-contact-form', 
+            { y: 50, autoAlpha: 0 },
+            {
+                scrollTrigger: {
+                    trigger: '.pf-contact-form',
+                    start: 'top 80%',
+                },
+                y: 0,
+                autoAlpha: 1,
+                duration: 1,
+                ease: 'power3.out',
+            }
+        );
+
+        // Sync tọa độ ScrollTrigger
+        ScrollTrigger.refresh();
+
+    }, { scope: container });
+
     return (
-        <section className="pf-contact container py-5 min-vh-100" id="contact">
+        <section className="pf-contact container py-5 min-vh-100" id="contact" ref={container}>
             <header className="pf-contact__header mb-5 pb-3 max-w-3xl">
                 <h2 className="pf-contact__headline fw-bold mb-3 display-4">
                     Let's Build Something <span className="text-primary pf-text-glow">Exceptional</span> Together

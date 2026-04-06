@@ -68,11 +68,7 @@ export default function RootLayout({
                 <link rel="stylesheet" href="/client/css/bootstrap.min.css" />
                 <link rel="stylesheet" href="/client/css/flag-icons.min.css" />
 
-                {/* AOS */}
-                <link
-                    rel="stylesheet"
-                    href="https://unpkg.com/aos@2.3.1/dist/aos.css"
-                />
+
 
                 {/* Open Graph cho Web3 wallets */}
                 <meta property="og:title" content={siteTitle} />

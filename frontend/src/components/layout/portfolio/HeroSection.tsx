@@ -1,8 +1,74 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 export default function HeroSection() {
+    const container = useRef<HTMLDivElement>(null);
+
+    useGSAP(() => {
+        // Debug: Kiểm tra xem các phần tử có tồn tại không
+        const techCards = gsap.utils.toArray('.pf-tech-card');
+        console.log('GSAP Hero Init - Tech Cards found:', techCards.length);
+
+        // Thiết lập trạng thái ẩn ban đầu một cách tường minh
+        gsap.set(['.pf-hero__availability', '.pf-hero__headline', '.pf-hero__lead', '.pf-btn', '.pf-tech-card', '.pf-hero__circle'], { 
+            autoAlpha: 0, 
+            y: 30 
+        });
+        gsap.set('.pf-hero__circle', { scale: 0, y: 0 });
+
+        const tl = gsap.timeline({ 
+            delay: 0.8, // Chờ lâu hơn một chút để chắc chắn mọi thứ đã render
+            onStart: () => console.log('Hero animation timeline started'),
+            onComplete: () => {
+                console.log('Hero animation completed');
+                // Force hiển thị lại nếu có lỗi
+                gsap.set('.pf-tech-card', { autoAlpha: 1, visibility: 'visible' });
+            }
+        });
+
+        tl.to('.pf-hero__availability', {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out'
+        })
+        .to('.pf-hero__headline', {
+            autoAlpha: 1,
+            y: 0,
+            duration: 1,
+            ease: 'power3.out'
+        }, '-=0.5')
+        .to('.pf-hero__lead', {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out'
+        }, '-=0.7')
+        .to('.pf-btn', {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: 'power3.out'
+        }, '-=0.5')
+        .add(() => {
+            // Force hiện tech-cards ngay lập tức để debug
+            console.log('GSAP Debug: Forcing tech cards visibility');
+            gsap.set('.pf-tech-card', { autoAlpha: 1, y: 0, visibility: 'visible' });
+        }, '-=0.4')
+        .to('.pf-hero__circle', {
+            autoAlpha: 1,
+            scale: 1,
+            duration: 1.2,
+            stagger: 0.15,
+            ease: 'elastic.out(1, 0.75)'
+        }, '-=1');
+
+    }, { scope: container });
+
     return (
-        <section className="pf-hero" id="hero">
+        <section className="pf-hero" id="hero" ref={container}>
             <div className="pf-hero__bg">
                 <div className="pf-hero__glow position-absolute top-50 start-50 translate-middle"></div>
                 <div className="pf-hero__circles position-absolute w-100 h-100 d-flex align-items-center justify-content-center top-0 start-0">
