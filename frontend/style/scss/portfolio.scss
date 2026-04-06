@@ -1,0 +1,406 @@
+// Portfolio Specific Styles (BEM)
+
+// Core Colors
+$pf-primary: #89acff;
+$pf-primary-dim: #0f6df3;
+$pf-secondary: #a68cff;
+$pf-tertiary: #81ecff;
+$pf-text-glow: rgba(137, 172, 255, 0.3);
+
+// Background Colors
+$pf-bg-dark: #0d0e12;
+$pf-surface: #18191e;
+$pf-surface-highest: #24252b;
+$pf-outline-variant: rgba(71, 72, 76, 0.15);
+
+// Typography Utilities
+.tracking-widest { letter-spacing: 0.1em; }
+.tracking-widest-plus { letter-spacing: 0.3em; }
+
+// Common Utilities
+.pf-text-gradient {
+    background: linear-gradient(135deg, $pf-primary 0%, #739eff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.pf-text-glow {
+    text-shadow: 0 0 15px $pf-text-glow;
+}
+
+.pf-glass-blur {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.pf-glass-card {
+    background: rgba(36, 37, 43, 0.4);
+    @extend .pf-glass-blur;
+}
+
+.bg-gradient-dark-up {
+    background: linear-gradient(to top, $pf-bg-dark 10%, transparent);
+}
+
+.rounded-pill-custom {
+    border-radius: 200px;
+}
+
+// Buttons
+.pf-btn {
+    transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+    
+    &--primary {
+        background: linear-gradient(135deg, $pf-primary 0%, #739eff 100%);
+        color: #002b6a;
+        box-shadow: 0 10px 20px rgba(15, 109, 243, 0.2);
+        
+        &:hover {
+            transform: scale(0.98);
+            box-shadow: 0 5px 15px rgba(15, 109, 243, 0.3);
+        }
+    }
+    
+    &--glass {
+        @extend .pf-glass-card;
+        border: 1px solid $pf-outline-variant;
+        color: #faf8fe;
+        
+        &:hover {
+            background: rgba(36, 37, 43, 0.6);
+        }
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+    
+    &__icon {
+        transition: transform 0.3s ease;
+    }
+    &:hover &__icon {
+        transform: translateX(4px);
+    }
+}
+
+// ---------------------------------------------------------
+// HERO SECTION
+// ---------------------------------------------------------
+.pf-hero {
+    position: relative;
+    overflow: hidden;
+    color: #faf8fe;
+
+    &__bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.2;
+    }
+
+    &__glow {
+        border-radius: 50%;
+        width: 800px;
+        height: 800px;
+        background: rgba(15, 109, 243, 0.1);
+        filter: blur(120px);
+    }
+
+    &__circles {
+        animation: pf-pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    &__circle {
+        border: 1px solid $pf-outline-variant;
+        
+        &--1 { width: 120%; height: 120%; }
+        &--2 { width: 75%; height: 75%; }
+        &--3 { width: 50%; height: 50%; }
+    }
+
+    &__availability {
+        background: rgba(30, 31, 37, 0.5);
+        border: 1px solid $pf-outline-variant;
+    }
+
+    &__dot {
+        width: 8px;
+        height: 8px;
+        background-color: $pf-secondary;
+    }
+
+    &__availability-text {
+        font-size: 0.75rem;
+        color: #abaab0;
+        font-family: "Manrope", sans-serif;
+    }
+
+    &__headline {
+        font-size: clamp(3rem, 5vw, 4.5rem);
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        font-family: 'Space Grotesk', sans-serif;
+    }
+
+    &__highlight {
+        color: $pf-primary;
+        @extend .pf-text-glow;
+    }
+
+    &__lead {
+        font-size: 1.125rem;
+        color: #abaab0;
+        max-width: 42rem;
+    }
+}
+
+.pf-tech-card {
+    @extend .pf-glass-card;
+    border: 1px solid $pf-outline-variant;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+
+    &:hover {
+        transform: scale(1.02);
+        background: rgba(36, 37, 43, 0.6);
+        border-color: rgba(137, 172, 255, 0.3);
+    }
+
+    &__icon {
+        width: 48px;
+        height: 48px;
+        background: $pf-surface-highest;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(71, 72, 76, 0.1);
+        transition: border-color 0.3s ease;
+    }
+    
+    &:hover &__icon {
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    &__title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.25rem;    
+    }
+    
+    &__subtitle {
+        font-family: 'Manrope', sans-serif;
+        font-size: 0.6875rem;
+        color: #abaab0;
+        letter-spacing: 0.1em;
+    }
+
+    &__avatar {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@keyframes pf-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .5; }
+}
+
+
+// ---------------------------------------------------------
+// SKILLS SECTION
+// ---------------------------------------------------------
+.pf-skills {
+    color: #faf8fe;
+
+    &__header-bg {
+        width: 24rem;
+        height: 24rem;
+        background: rgba(137, 172, 255, 0.1);
+        border-radius: 50%;
+        filter: blur(120px);
+    }
+
+    &__label {
+        font-family: 'Manrope', sans-serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.3em;
+    }
+
+    &__headline {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: clamp(2.5rem, 4vw, 4.5rem);
+        max-width: 56rem;
+        line-height: 1.1;
+        letter-spacing: -0.05em;
+    }
+
+    &__sub-label {
+        font-size: 0.75rem;
+        color: #abaab0;
+        letter-spacing: 0.1em;
+    }
+}
+
+.pf-horizontal-line {
+    background: rgba(71, 72, 76, 0.3);
+}
+
+.pf-skill-card {
+    transition: all 0.5s ease-out;
+
+    &:hover {
+        background-color: $pf-surface-highest !important;
+    }
+
+    &__bg-icon {
+        transition: opacity 0.3s;
+    }
+
+    &:hover &__bg-icon {
+        opacity: 1 !important;
+    }
+
+    &__badge {
+        font-size: 10px;
+        letter-spacing: 0.05em;
+    }
+
+    &__tags {
+        opacity: 0.6;
+        transform: translateY(10px);
+        transition: all 0.5s ease-out;
+    }
+    
+    &:hover &__tags {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.pf-timeline {
+    &__line {
+        width: 2px;
+        background: linear-gradient(to bottom, $pf-primary, $pf-secondary, transparent);
+        opacity: 0.2;
+    }
+    
+    &__time {
+        font-family: 'Space Grotesk', sans-serif;
+        transition: color 0.5s;
+    }
+    
+    &__item:hover &__time {
+        color: $pf-primary !important;
+        opacity: 1 !important;
+    }
+    
+    &__dot {
+        box-shadow: 0 0 20px $pf-primary;
+    }
+}
+
+// ---------------------------------------------------------
+// PROJECTS SECTION
+// ---------------------------------------------------------
+.pf-projects {
+    &__headline {
+        font-family: 'Space Grotesk', sans-serif;
+        color: #faf8fe;
+        letter-spacing: -0.05em;
+    }
+}
+
+.pf-project-card {
+    transition: all 0.5s ease;
+    
+    &:hover {
+        transform: scale(1.02);
+        border-color: rgba(137, 172, 255, 0.3) !important;
+    }
+
+    &__img {
+        transition: transform 0.7s ease-out;
+    }
+
+    &:hover &__img {
+        transform: scale(1.05);
+    }
+
+    &:hover &__overlay {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }
+    
+    @media (max-width: 991px) {
+        border-radius: 2rem !important; // override rounded-pill for smaller devices
+    }
+}
+
+
+// ---------------------------------------------------------
+// CONTACT SECTION
+// ---------------------------------------------------------
+.pf-contact {
+    &__headline {
+        font-family: 'Space Grotesk', sans-serif;
+        color: #faf8fe;
+        letter-spacing: -0.05em;
+        line-height: 1.1;
+    }
+    
+    &-info {
+        &:hover {
+            background-color: $pf-surface;
+        }
+        
+        &:hover &__icon {
+            border-color: rgba(137, 172, 255, 0.4) !important;
+            box-shadow: 0 0 20px rgba(137, 172, 255, 0.2);
+        }
+    }
+}
+
+.pf-input {
+    transition: all 0.3s;
+    &:focus {
+        box-shadow: 0 0 0 0.25rem rgba(137, 172, 255, 0.4);
+        border-color: $pf-primary !important;
+    }
+}
+
+
+// ---------------------------------------------------------
+// HEADER SECTION
+// ---------------------------------------------------------
+.pf-header {
+    background: rgba(13, 14, 18, 0.6);
+    @extend .pf-glass-blur;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    
+    &__logo {
+        font-family: 'Space Grotesk', sans-serif;
+        color: $pf-primary;
+        letter-spacing: -0.05em;
+    }
+    
+    &__nav {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.875rem;
+    }
+    
+    &__link {
+        color: #abaab0;
+        transition: all 0.3s cubic-bezier(0.23,1,0.32,1);
+        text-decoration: none;
+        
+        &:hover {
+            color: $pf-primary;
+        }
+        
+        &--active {
+            color: $pf-primary;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(15, 109, 243, 0.3);
+        }
+    }
+}

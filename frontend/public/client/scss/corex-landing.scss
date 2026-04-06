@@ -1,0 +1,1120 @@
+@use "./variables.scss" as *;
+@use "./breakpoint.scss" as *;
+
+// CoreX landing — scoped styles; comments in English only.
+
+html:has(.corex-landing) {
+  scroll-padding-top: 90px;
+}
+
+// Figma 10003:64 — page-glow-bg.png as fixed ambient layer behind content
+.corex-landing {
+  position: relative;
+  isolation: isolate;
+  background-color: #000;
+  color: #fff;
+  font-family: $corex-font;
+  padding-top: 70px;
+}
+
+.corex-landing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: #000;
+  background-image: url("../images/corex/page-glow-bg.png");
+  background-repeat: repeat;
+  background-position: center top;
+  background-size: contain;
+}
+
+.corex-landing > main,
+.corex-landing > footer {
+  position: relative;
+  z-index: 1;
+}
+
+@mixin corex-text-gradient {
+  background: $corex-heading-gradient;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+// Figma horizontal glow line asset (2600×12 PNG)
+@mixin corex-ellipse-line-h {
+  background-image: url("../images/corex/ellipse.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  aspect-ratio: 2600 / 12;
+}
+
+.corex-text-gradient {
+  @include corex-text-gradient;
+}
+
+.corex-title-line {
+  width: 100%;
+  max-width: 576px;
+  margin-left: auto;
+  margin-right: auto;
+  @include corex-ellipse-line-h;
+}
+
+// Hero copy block (Figma 8038:448): line spans full width of 500px column
+.corex-title-line--hero {
+  max-width: 100%;
+}
+
+.corex-section-title {
+  @include corex-text-gradient;
+  font-size: clamp(1.75rem, 4vw, 2.8125rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.corex-section-subtitle {
+  @include corex-text-gradient;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.corex-body {
+  color: $corex-muted;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.corex-brand {
+  color: $corex-accent;
+  font-weight: 700;
+}
+
+.corex-brand-rest {
+  background: $corex-heading-gradient;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
+}
+
+.corex-section-py {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+
+  @include desktop-sm-up {
+    padding-top: 5.5rem;
+    padding-bottom: 5.5rem;
+  }
+}
+
+// --- Header
+.corex-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7);
+  // backdrop-filter: blur(8px);
+}
+
+.corex-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.corex-header__logo {
+  display: block;
+  flex-shrink: 0;
+}
+
+.corex-header__logo-img {
+  display: block;
+  width: 200px;
+  max-width: min(200px, 45vw);
+  height: auto;
+}
+
+.corex-header__toggle {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  padding: 0.35rem 0.6rem;
+}
+
+.corex-header__toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 56, 74, 0.35);
+}
+
+.corex-header__offcanvas {
+  --bs-offcanvas-width: min(100vw - 1.5rem, 22rem);
+  --bs-offcanvas-bg: rgba(0, 0, 0, 0.94);
+  --bs-offcanvas-color: #fff;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-left: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+.corex-header__offcanvas-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.corex-header__offcanvas-body {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.corex-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.corex-nav .nav-link {
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.35rem 0;
+  white-space: nowrap;
+}
+
+.corex-nav .nav-link:hover,
+.corex-nav .nav-link:focus {
+  color: $corex-accent;
+}
+
+.corex-nav .nav-link.active,
+.corex-nav .nav-link--active {
+  color: $corex-accent;
+}
+
+.corex-header__lang {
+  flex-shrink: 0;
+}
+
+.corex-header__lang.dropdown-toggle::after {
+  margin-left: 0.25rem;
+  vertical-align: 0.15em;
+}
+
+.corex-header__lang .fi {
+  font-size: 1.125rem;
+  line-height: 1;
+}
+
+.corex-header__lang-menu {
+  --bs-dropdown-min-width: 11rem;
+  margin-top: 0.35rem;
+  padding: 0.35rem 0;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 0.375rem;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 12px 40px rgba(0, 0, 0, 0.55);
+}
+
+.corex-header__lang-menu .dropdown-item {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.corex-header__lang-menu .dropdown-item:hover,
+.corex-header__lang-menu .dropdown-item:focus {
+  color: $corex-accent;
+  background-color: rgba($corex-accent, 0.14);
+}
+
+.corex-header__lang-menu .dropdown-item:active,
+.corex-header__lang-menu .dropdown-item.active,
+.corex-header__lang-menu .dropdown-item:active:focus {
+  color: $corex-accent;
+  background-color: rgba($corex-accent, 0.22);
+}
+
+.corex-header__lang-menu .dropdown-item:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba($corex-accent, 0.35);
+}
+
+.corex-header__lang-menu .dropdown-item .fi {
+  font-size: 1rem;
+  line-height: 1;
+  opacity: 0.95;
+}
+
+// Align with Bootstrap navbar-expand-lg (992px)
+@media (min-width: 992px) {
+  .corex-header__offcanvas-body {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  .corex-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    justify-content: flex-end;
+  }
+
+  .corex-nav .nav-link {
+    padding: 0;
+  }
+}
+
+// --- Hero
+.corex-hero {
+  position: relative;
+  min-height: 720px;
+  overflow: hidden;
+}
+
+.corex-hero__glow {
+  position: absolute;
+  pointer-events: none;
+  width: min(2000px, 180vw);
+  aspect-ratio: 1;
+  background: url("../images/corex/glow-orb.png") center / contain no-repeat;
+  opacity: 0.35;
+  z-index: 0;
+}
+
+.corex-hero__glow--tr {
+  top: -8%;
+  right: -25%;
+  transform: translateX(40%);
+}
+
+.corex-hero__glow--br {
+  bottom: 18%;
+  right: -25%;
+  transform: translateX(40%);
+}
+
+.corex-hero__glow--tl {
+  top: 4%;
+  left: -25%;
+  transform: translateX(-40%);
+}
+
+.corex-hero__glow--bl {
+  bottom: 32%;
+  left: -25%;
+  transform: translateX(-40%);
+}
+
+.corex-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.corex-hero__bg-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.corex-hero__content {
+  position: relative;
+  z-index: 2;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+.corex-hero__visual {
+  display: block;
+  width: 100%;
+  max-width: 490px;
+  margin-left: auto;
+  margin-right: auto;
+  height: auto;
+}
+
+// Figma 8038:448 — flex column, items-center, gap 40px (title stack vs CTA)
+.corex-hero__copy-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.corex-hero__copy-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+// Figma: frame h~39px, text group starts at top 80px → ~41px below frame
+.corex-hero__frame {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 2.5625rem;
+  height: auto;
+}
+
+// Figma 8015:333 — gap 10px between headline, rule, tagline
+.corex-hero__copy-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.corex-hero__headline {
+  @include corex-text-gradient;
+  font-size: 1.5625rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.corex-hero__tagline {
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+// Figma 8003:2449 — pill h40, w450, label 16px #333
+.corex-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 450px;
+  min-height: 40px;
+  padding: 0 10px;
+  border-radius: 100px;
+  background: linear-gradient(180deg, #ffffff 0%, #999999 100%);
+  color: #333;
+  font-size: 1rem;
+  font-weight: 400;
+  text-decoration: none;
+  border: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.corex-hero__cta:hover {
+  color: #111;
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.corex-page-glow {
+  position: relative;
+  height: min(120vh, 1605px);
+  max-width: 1920px;
+  margin: 0 auto;
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+.corex-page-glow__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+// Wraps Ecosystem + CORX Token + AI Layer; Figma glow-mid.png behind content (~50% opacity)
+.corex-glow-mid-band {
+  background-image: url("../images/corex/glow-mid.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 70%;
+  @include sm{
+    background-size: auto 70%;
+  }
+}
+
+// .corex-glow-mid-band::before {
+//   content: "";
+//   position: absolute;
+//   inset: 0;
+//   z-index: 0;
+//   background-image: url("../images/corex/glow-mid.png");
+//   background-repeat: no-repeat;
+//   background-position: center center;
+//   background-size: cover;
+//   opacity: 0.5;
+//   pointer-events: none;
+// }
+
+.corex-glow-mid-band > section {
+  position: relative;
+  z-index: 1;
+}
+
+// --- Cards (strategy, token, roadmap)
+.corex-card {
+  position: relative;
+  border: 1px solid $corex-border-card;
+  border-radius: 10px;
+  background: $corex-card-gradient;
+  padding: 1.875rem;
+  height: 100%;
+}
+
+.corex-card--phase {
+  padding-top: 0;
+  overflow: visible;
+}
+
+.corex-card__thumb {
+  display: block;
+  width: 204px;
+  max-width: 100%;
+  margin: 0 auto 1rem;
+  border-radius: 10px;
+  border: 1px solid #fff;
+  height: auto;
+  margin-top: -40px;
+  @include sm {
+    margin-top: -30px;
+  }
+}
+
+.corex-card__phase-label {
+  color: $corex-accent;
+  font-size: 1.25rem;
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+
+.corex-card__phase-title {
+  @include corex-text-gradient;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.corex-card__list {
+  color: $corex-muted;
+  font-size: 1rem;
+  padding-left: 1.25rem;
+}
+
+.corex-card__icon {
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 0.5rem;
+  object-fit: contain;
+}
+
+// --- Roadmap (Figma 8064:281) — timeline axis, stems, nodes
+.corex-roadmap__track {
+  position: relative;
+  margin-top: 0.5rem;
+}
+
+.corex-roadmap__track .row {
+  position: relative;
+  z-index: 1;
+}
+
+// Horizontal axis — same ellipse asset as section title lines, max width 1300px
+.corex-roadmap__axis {
+  position: absolute;
+  left: 50%;
+  bottom: 7px;
+  transform: translateX(-50%);
+  width: min(100%, 1300px);
+  z-index: 0;
+  pointer-events: none;
+  @include corex-ellipse-line-h;
+}
+
+.corex-roadmap__track .row > [class*="col-"] {
+  display: flex;
+}
+
+.corex-roadmap__column {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 100%;
+}
+
+.corex-roadmap__column .corex-card--roadmap {
+  flex: 1 1 auto;
+  height: auto;
+}
+
+.corex-card--roadmap .corex-card__phase-label:not(.corex-roadmap__phase-split) {
+  font-size: 1.875rem;
+}
+
+.corex-roadmap__phase-split {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.35rem;
+  line-height: 1.1;
+}
+
+.corex-roadmap__phase-late {
+  font-size: 1.25rem;
+}
+
+.corex-roadmap__phase-year {
+  font-size: 1.875rem;
+}
+
+// Vertical connector + node (Figma ~89px stem, 20×39 dot)
+.corex-roadmap__connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  padding-bottom: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.corex-roadmap__stem {
+  width: 1px;
+  height: 5.5625rem;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(220, 220, 220, 0.35) 45%,
+    rgba($corex-accent, 0.4) 100%
+  );
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.08);
+}
+
+.corex-roadmap__node {
+  width: 20px;
+  height: 20px;
+  margin-top: -1px;
+  margin-bottom: -8px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 32% 28%,
+    #ffffff 0%,
+    #ffd0d6 25%,
+    $corex-accent 58%,
+    #b01e2a 100%
+  );
+  box-shadow:
+    0 0 4px rgba(255, 255, 255, 0.65),
+    0 0 12px rgba($corex-accent, 0.95),
+    0 0 24px rgba($corex-accent, 0.6),
+    0 0 42px rgba($corex-accent, 0.25);
+}
+
+.corex-token-poly {
+  display: block;
+  width: 204px;
+  max-width: 80%;
+  margin: 0 auto 1rem;
+  height: auto;
+}
+
+.corex-card--hex {
+  min-height: 488px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 2.5rem;
+}
+
+// --- Ecosystem (Figma 8054:323) — 1190×657 artboard, absolute pins + centered hub 595×508
+.corex-eco-intro {
+  max-width: 720px;
+  margin: 0 auto 3.125rem;
+  text-align: center;
+}
+
+.corex-eco-diagram {
+  position: relative;
+  width: 100%;
+  max-width: 1190px;
+  margin: 0 auto;
+  aspect-ratio: 1190 / 657;
+  min-height: 280px;
+}
+
+// Center hub: 50% of artboard width, slight x offset per Figma (50% + 5.5px, -50% translate)
+.corex-eco-diagram__hub {
+  position: absolute;
+  left: calc(50% + 5.5px);
+  top: 0;
+  transform: translateX(-50%);
+  width: 50%;
+  aspect-ratio: 595 / 508;
+  max-width: 595px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+// Orbit markers: same Figma slots as PNGs (8006:3643), filled with CSS red dots — no images
+.corex-eco-diagram__orbit {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0) 45%
+  ),
+    $corex-accent;
+  box-shadow:
+    0 0 6px rgba($corex-accent, 0.85),
+    0 0 14px rgba($corex-accent, 0.45);
+}
+
+.corex-eco-diagram__orbit--0 {
+  inset: 95.64% 47.68% 0 48.59%;
+}
+
+.corex-eco-diagram__orbit--1 {
+  inset: 84.46% 77.25% 11.18% 19.02%;
+}
+
+.corex-eco-diagram__orbit--2 {
+  inset: 54.91% 95.22% 40.73% 1.05%;
+}
+
+.corex-eco-diagram__orbit--3 {
+  inset: 15.2% 93.28% 80.43% 2.99%;
+}
+
+.corex-eco-diagram__orbit--4 {
+  inset: 83.9% 18.37% 11.73% 77.9%;
+}
+
+.corex-eco-diagram__orbit--5 {
+  inset: 53.96% 0.82% 41.67% 95.45%;
+}
+
+.corex-eco-diagram__orbit--6 {
+  inset: 17.67% 2.1% 77.96% 94.17%;
+}
+
+.corex-eco-diagram__vector {
+  position: absolute;
+  z-index: 2;
+
+  img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.corex-eco-diagram__vector--a {
+  inset: 16.44% 0 1.26% 0;
+}
+
+.corex-eco-diagram__vector--b {
+  inset: 2.46% 17.69% 21.97% 17.69%;
+}
+
+.corex-eco-diagram__center {
+  position: absolute;
+  z-index: 3;
+  left: 19.94%;
+  right: 20.07%;
+  top: 0;
+  aspect-ratio: 1024 / 1043;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+// Satellite labels — % positions vs 1190×657 (8054:322)
+.corex-eco-pin {
+  position: absolute;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.corex-eco-pin__title {
+  margin: 0;
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.corex-eco-pin__text {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #fff;
+}
+
+.corex-eco-pin--wallet {
+  left: 0;
+  top: 8.52%;
+  width: 21.85%;
+  min-height: 21%;
+  text-align: right;
+
+  .corex-eco-pin__title {
+    text-align: center;
+  }
+
+  .corex-eco-pin__text {
+    margin-top: 0.5rem;
+  }
+}
+
+.corex-eco-pin--dao {
+  left: 78.99%;
+  top: 8.52%;
+  width: 21.01%;
+  min-height: 17.35%;
+  text-align: left;
+
+  .corex-eco-pin__text {
+    margin-top: 0.5rem;
+  }
+}
+
+.corex-eco-pin--commerce {
+  left: 1.93%;
+  top: 38.05%;
+  width: 21.85%;
+  min-height: 21%;
+  text-align: right;
+
+  .corex-eco-pin__title {
+    text-align: left;
+    padding-left: 8.46%;
+  }
+
+  .corex-eco-pin__text {
+    margin-top: 0.5rem;
+  }
+}
+
+.corex-eco-pin--lending {
+  left: 77.14%;
+  top: 38.05%;
+  width: 21.01%;
+  min-height: 17.35%;
+  text-align: left;
+
+  .corex-eco-pin__text {
+    margin-top: 0.5rem;
+  }
+}
+
+.corex-eco-pin--dex {
+  left: 34.29%;
+  top: 76.86%;
+  width: 21.85%;
+  transform: translateX(-100%);
+  text-align: right;
+
+  .corex-eco-pin__title {
+    margin-bottom: 0.35rem;
+  }
+}
+
+.corex-eco-pin--cex {
+  left: 38.24%;
+  top: 82.65%;
+  width: 24.37%;
+  min-height: 17.35%;
+  text-align: center;
+
+  .corex-eco-pin__title {
+    position: relative;
+    left: 50%;
+    transform: translateX(calc(-50% - 4px));
+    width: max-content;
+    margin-bottom: 0.35rem;
+  }
+
+  .corex-eco-pin__text {
+    margin-top: 0.25rem;
+  }
+}
+
+.corex-eco-pin--launchpad {
+  left: 66.64%;
+  top: 70.47%;
+  width: 21.85%;
+  min-height: 17.35%;
+  text-align: left;
+
+  .corex-eco-pin__text {
+    margin-top: 0.5rem;
+  }
+}
+
+// Below desktop: stacked list so labels are not clipped or overlapped (xs mixin is 320px only — too narrow)
+@media (max-width: #{$desktop-sm-width - 1px}) {
+  .corex-eco-intro {
+    margin-bottom: 2rem;
+    padding-inline: 0.25rem;
+  }
+
+  .corex-eco-diagram {
+    aspect-ratio: auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    max-width: 100%;
+  }
+
+  .corex-eco-diagram__hub {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: min(100%, 22rem);
+    max-width: 100%;
+    margin-inline: auto;
+    flex-shrink: 0;
+  }
+
+  .corex-eco-pin {
+    position: static;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: 36rem;
+    min-height: 0 !important;
+    transform: none !important;
+    text-align: left !important;
+    padding: 0.75rem 1rem;
+    margin-inline: auto;
+    border-left: 3px solid rgba($corex-accent, 0.55);
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 0.375rem;
+  }
+
+  .corex-eco-pin--commerce .corex-eco-pin__title {
+    text-align: left !important;
+    padding-left: 0 !important;
+  }
+
+  .corex-eco-pin--cex .corex-eco-pin__title {
+    position: static !important;
+    left: auto !important;
+    transform: none !important;
+    width: auto !important;
+    margin-bottom: 0.35rem;
+  }
+
+  .corex-eco-pin__title {
+    font-size: 1.25rem;
+  }
+
+  .corex-eco-pin__text {
+    font-size: 0.9375rem;
+  }
+}
+
+// --- Contact
+.corex-contact {
+  position: relative;
+  min-height: 500px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2.5rem 1rem 4rem;
+}
+
+.corex-contact__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.corex-contact__bg-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.corex-contact__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  text-align: center;
+}
+
+.corex-contact__block {
+  color: $corex-muted-light;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.corex-contact__block strong,
+.corex-contact__label {
+  color: #fff;
+  font-weight: 600;
+}
+
+// --- Footer
+.corex-footer {
+  background: #000;
+}
+
+// Figma 8015:287 — h200, px 200 py 30, rgba(0,0,0,0.2), flex gap 145 between blocks
+.corex-footer__main {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 30px clamp(1rem, 8vw, 200px);
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  @include sm {
+    padding: 30px 0;
+  }
+
+}
+
+.corex-footer__logo-img {
+  display: block;
+  width: 200px;
+  max-width: 100%;
+  height: auto;
+}
+
+// Figma 8012:4051 — labels 16px #ff384a, values #c8c8c8; ~44px between lines
+.corex-footer__meta {
+  font-size: 1rem;
+  line-height: normal;
+}
+
+.corex-footer__meta-line + .corex-footer__meta-line {
+  margin-top: 1rem;
+}
+
+.corex-footer__meta-label {
+  color: $corex-accent;
+}
+
+.corex-footer__meta-value {
+  color: $corex-muted;
+}
+
+// Figma 8012:4055 — 12px, • + link #c8c8c8, ~29px between rows
+.corex-footer__links li + li {
+  margin-top: 1rem;
+}
+
+.corex-footer__links a {
+  color: $corex-muted;
+  text-decoration: none;
+  font-size: 0.75rem;
+
+  &::before {
+    content: "•";
+    color: $corex-accent;
+    margin-right: 0.25em;
+  }
+}
+
+.corex-footer__links a:hover {
+  color: #fff;
+}
+
+.corex-footer__social-img {
+  display: block;
+  width: 150px;
+  max-width: 100%;
+  height: auto;
+}
+
+.corex-footer__bar {
+  position: relative;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.corex-footer__bar-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.corex-footer__copy {
+  position: relative;
+  z-index: 1;
+  color: $corex-accent;
+  font-size: 1rem;
+  margin: 0;
+  padding: 1rem;
+  text-align: center;
+}
+
+.corex-illustration {
+  display: block;
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
+  height: auto;
+}
+
+.corex-token-header {
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// --- AOS mobile fix (moved from inline layout)
+@media (max-width: 767.98px) {
+  [data-aos][data-aos][data-aos-delay],
+  [data-aos][data-aos][data-aos-duration] {
+    transition-delay: 0s !important;
+    animation-delay: 0s !important;
+  }
+}

@@ -1,0 +1,1229 @@
+@charset "UTF-8";
+
+/* media size */
+/* Landscape breakpoints for mobile and tablet */
+html:has(.corex-landing) {
+  scroll-padding-top: 90px;
+}
+
+.corex-landing {
+  position: relative;
+  isolation: isolate;
+  background-color: #000;
+  color: #fff;
+  font-family: "Roboto", "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+  padding-top: 70px;
+}
+
+.corex-landing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: #000;
+  background-image: url("../images/corex/page-glow-bg.png");
+  background-repeat: repeat;
+  background-position: center top;
+  background-size: contain;
+}
+
+.corex-landing>main,
+.corex-landing>footer {
+  position: relative;
+  z-index: 1;
+}
+
+.corex-text-gradient {
+  background: linear-gradient(180deg, #ffffff 0%, #999999 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.corex-title-line {
+  width: 100%;
+  max-width: 576px;
+  margin-left: auto;
+  margin-right: auto;
+  background-image: url("../images/corex/ellipse.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  aspect-ratio: 2600/12;
+}
+
+.corex-title-line--hero {
+  max-width: 100%;
+}
+
+.corex-section-title {
+  background: linear-gradient(180deg, #ffffff 0%, #999999 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: clamp(1.75rem, 4vw, 2.8125rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.corex-section-subtitle {
+  background: linear-gradient(180deg, #ffffff 0%, #999999 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.corex-body {
+  color: #c8c8c8;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.corex-brand {
+  color: #ff384a;
+  font-weight: 700;
+}
+
+.corex-brand-rest {
+  background: linear-gradient(180deg, #ffffff 0%, #999999 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
+}
+
+.corex-section-py {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 1024px) {
+  .corex-section-py {
+    padding-top: 5.5rem;
+    padding-bottom: 5.5rem;
+  }
+}
+
+.corex-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.corex-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.corex-header__logo {
+  display: block;
+  flex-shrink: 0;
+}
+
+.corex-header__logo-img {
+  display: block;
+  width: 150px;
+  height: auto;
+}
+
+@media (max-width: 767.98px) {
+  .corex-header__logo-img {
+    width: 110px;
+  }
+}
+
+.corex-header__toggle {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  padding: 0.35rem 0.6rem;
+}
+
+.corex-header__toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 56, 74, 0.35);
+}
+
+.corex-header__offcanvas {
+  --bs-offcanvas-width: min(100vw - 1.5rem, 22rem);
+  --bs-offcanvas-bg: rgba(0, 0, 0, 0.94);
+  --bs-offcanvas-color: #fff;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-left: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+.corex-header__offcanvas-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.corex-header__offcanvas-body {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.corex-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.corex-nav .nav-link {
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.35rem 0;
+  white-space: nowrap;
+}
+
+.corex-nav .nav-link:hover,
+.corex-nav .nav-link:focus {
+  color: #ff384a;
+}
+
+.corex-nav .nav-link.active,
+.corex-nav .nav-link--active {
+  color: #ff384a;
+}
+
+.btn-connect {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 56, 74, 0.7);
+  background: linear-gradient(180deg, rgba(255, 56, 74, 0.16) 0%, rgba(255, 56, 74, 0.08) 100%);
+  color: #fff;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 18px rgba(255, 56, 74, 0.28);
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-connect:hover,
+.btn-connect:focus-visible {
+  border-color: #ff384a;
+  background: linear-gradient(180deg, rgba(255, 56, 74, 0.34) 0%, rgba(255, 56, 74, 0.18) 100%);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 0 24px rgba(255, 56, 74, 0.4);
+}
+
+.btn-connect:focus-visible {
+  outline: 0;
+}
+
+.btn-connect:active {
+  transform: translateY(0);
+}
+
+.corex-header__lang {
+  flex-shrink: 0;
+}
+
+.corex-header__lang.dropdown-toggle::after {
+  margin-left: 0.25rem;
+  vertical-align: 0.15em;
+}
+
+.corex-header__lang .fi {
+  font-size: 1.125rem;
+  line-height: 1;
+}
+
+.corex-header__lang-menu {
+  --bs-dropdown-min-width: 11rem;
+  margin-top: 0.35rem;
+  padding: 0.35rem 0;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 0.375rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 12px 40px rgba(0, 0, 0, 0.55);
+}
+
+.corex-header__lang-menu .dropdown-item {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.corex-header__lang-menu .dropdown-item:hover,
+.corex-header__lang-menu .dropdown-item:focus {
+  color: #ff384a;
+  background-color: rgba(255, 56, 74, 0.14);
+}
+
+.corex-header__lang-menu .dropdown-item:active,
+.corex-header__lang-menu .dropdown-item.active,
+.corex-header__lang-menu .dropdown-item:active:focus {
+  color: #ff384a;
+  background-color: rgba(255, 56, 74, 0.22);
+}
+
+.corex-header__lang-menu .dropdown-item:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(255, 56, 74, 0.35);
+}
+
+.corex-header__lang-menu .dropdown-item .fi {
+  font-size: 1rem;
+  line-height: 1;
+  opacity: 0.95;
+}
+
+@media (min-width: 992px) {
+  .corex-header__offcanvas-body {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  .corex-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    justify-content: flex-end;
+  }
+
+  .corex-nav .nav-link {
+    padding: 0;
+  }
+
+  .btn-connect {
+    margin-left: 0.5rem;
+  }
+}
+
+.corex-hero {
+  position: relative;
+  min-height: 720px;
+  overflow: hidden;
+}
+
+.corex-hero__glow {
+  position: absolute;
+  pointer-events: none;
+  width: min(2000px, 180vw);
+  aspect-ratio: 1;
+  background: url("../images/corex/glow-orb.png") center/contain no-repeat;
+  opacity: 0.35;
+  z-index: 0;
+}
+
+.corex-hero__glow--tr {
+  top: -8%;
+  right: -25%;
+  transform: translateX(40%);
+}
+
+.corex-hero__glow--br {
+  bottom: 18%;
+  right: -25%;
+  transform: translateX(40%);
+}
+
+.corex-hero__glow--tl {
+  top: 4%;
+  left: -25%;
+  transform: translateX(-40%);
+}
+
+.corex-hero__glow--bl {
+  bottom: 32%;
+  left: -25%;
+  transform: translateX(-40%);
+}
+
+.corex-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.corex-hero__bg-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.corex-hero__content {
+  position: relative;
+  z-index: 2;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+.corex-hero__visual {
+  display: block;
+  width: 100%;
+  max-width: 490px;
+  position: relative;
+  margin-top: 90px;
+  --width: 35%;
+}
+
+@media (min-width: 320px) and (max-width: 479px) {
+  .corex-hero__visual {
+    margin-top: 15px;
+  }
+}
+
+.corex-hero__visual .corex-hero__visual-frame {
+  width: 100%;
+}
+
+.corex-hero__visual .corex-hero__visual-center {
+  position: absolute;
+  inset: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%) scale(1);
+  width: 50%;
+  height: 50%;
+  animation: corex-hero-center-pulse 4s ease-in-out infinite;
+}
+
+.corex-hero__visual .corex-hero__visual-center img {
+  object-fit: cover;
+  object-position: center;
+}
+
+@keyframes corex-hero-center-pulse {
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.corex-hero__visual .corex-hero__visual-top,
+.corex-hero__visual .corex-hero__visual-right,
+.corex-hero__visual .corex-hero__visual-bottom,
+.corex-hero__visual .corex-hero__visual-left {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  width: var(--width);
+  object-fit: cover;
+  object-position: center;
+  transform: translate(-50%, -50%) rotate(0deg) translateX(115%) rotate(0deg);
+  animation-play-state: running;
+}
+
+.corex-hero__visual .corex-hero__visual-top img,
+.corex-hero__visual .corex-hero__visual-right img,
+.corex-hero__visual .corex-hero__visual-bottom img,
+.corex-hero__visual .corex-hero__visual-left img {
+  transition: transform 0.25s ease;
+}
+
+.corex-hero__visual .corex-hero__visual-top:hover,
+.corex-hero__visual .corex-hero__visual-right:hover,
+.corex-hero__visual .corex-hero__visual-bottom:hover,
+.corex-hero__visual .corex-hero__visual-left:hover {
+  z-index: 3;
+}
+
+@keyframes corex-hero-visual-orbit {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg) translateX(115%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg) translateX(115%) rotate(-360deg);
+  }
+}
+
+.corex-hero__visual .corex-hero__visual-top {
+  animation: corex-hero-visual-orbit 20s linear infinite;
+  animation-delay: 0s;
+}
+
+.corex-hero__visual .corex-hero__visual-right {
+  animation: corex-hero-visual-orbit 20s linear infinite;
+  animation-delay: -5s;
+}
+
+.corex-hero__visual .corex-hero__visual-bottom {
+  animation: corex-hero-visual-orbit 20s linear infinite;
+  animation-delay: -10s;
+}
+
+.corex-hero__visual .corex-hero__visual-left {
+  animation: corex-hero-visual-orbit 20s linear infinite;
+  animation-delay: -15s;
+}
+
+.corex-hero__visual:hover .corex-hero__visual-top,
+.corex-hero__visual:hover .corex-hero__visual-right,
+.corex-hero__visual:hover .corex-hero__visual-bottom,
+.corex-hero__visual:hover .corex-hero__visual-left {
+  animation-play-state: paused;
+}
+
+.corex-hero__visual:hover .corex-hero__visual-top:hover img,
+.corex-hero__visual:hover .corex-hero__visual-right:hover img,
+.corex-hero__visual:hover .corex-hero__visual-bottom:hover img,
+.corex-hero__visual:hover .corex-hero__visual-left:hover img {
+  transform: scale(1.2);
+}
+
+.corex-hero__copy-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.corex-hero__copy-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.corex-hero__frame {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 2.5625rem;
+  height: auto;
+}
+
+.corex-hero__copy-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.corex-hero__headline {
+  background: linear-gradient(180deg, #ffffff 0%, #999999 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 1.5625rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.corex-hero__tagline {
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.corex-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 450px;
+  min-height: 40px;
+  padding: 0 10px;
+  border-radius: 100px;
+  background: linear-gradient(180deg, #ffffff 0%, #999999 100%);
+  color: #333;
+  font-size: 1rem;
+  font-weight: 400;
+  text-decoration: none;
+  border: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.corex-hero__cta:hover {
+  color: #111;
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.corex-page-glow {
+  position: relative;
+  height: min(120vh, 1605px);
+  max-width: 1920px;
+  margin: 0 auto;
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+.corex-page-glow__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.corex-glow-mid-band {
+  background-image: url("../images/corex/glow-mid.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 70%;
+}
+
+@media (min-width: 320px) and (max-width: 479px) {
+  .corex-glow-mid-band {
+    background-size: auto 70%;
+  }
+}
+
+.corex-glow-mid-band>section {
+  position: relative;
+  z-index: 1;
+}
+
+.corex-card {
+  position: relative;
+  border: 1px solid #9a9a9a;
+  border-radius: 10px;
+  background: radial-gradient(ellipse at top left, rgba(98, 86, 86, 0.45) 0%, rgba(17, 15, 15, 0.65) 100%);
+  padding: 1.875rem;
+  height: 100%;
+}
+
+.corex-card--phase {
+  padding-top: 0;
+  overflow: visible;
+}
+
+.corex-card__thumb {
+  display: block;
+  width: 204px;
+  max-width: 100%;
+  margin: 0 auto 1rem;
+  border-radius: 10px;
+  border: 1px solid #fff;
+  height: auto;
+  margin-top: -40px;
+}
+
+@media (min-width: 320px) and (max-width: 479px) {
+  .corex-card__thumb {
+    margin-top: -30px;
+  }
+}
+
+.corex-card__phase-label {
+  color: #ff384a;
+  font-size: 1.25rem;
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+
+.corex-card__phase-title {
+  background: linear-gradient(180deg, #ffffff 0%, #999999 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.corex-card__list {
+  color: #c8c8c8;
+  font-size: 1rem;
+  padding-left: 1.25rem;
+}
+
+.corex-card__icon {
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 0.5rem;
+  object-fit: contain;
+}
+
+.corex-roadmap__track {
+  position: relative;
+  margin-top: 0.5rem;
+}
+
+.corex-roadmap__track .row {
+  position: relative;
+  z-index: 1;
+}
+
+.corex-roadmap__axis {
+  position: absolute;
+  left: 50%;
+  bottom: 7px;
+  transform: translateX(-50%);
+  width: min(100%, 1300px);
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("../images/corex/ellipse.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  aspect-ratio: 2600/12;
+}
+
+.corex-roadmap__track .row>[class*=col-] {
+  display: flex;
+}
+
+.corex-roadmap__column {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 100%;
+}
+
+.corex-roadmap__column .corex-card--roadmap {
+  flex: 1 1 auto;
+  height: auto;
+}
+
+.corex-card--roadmap .corex-card__phase-label:not(.corex-roadmap__phase-split) {
+  font-size: 1.875rem;
+}
+
+.corex-roadmap__phase-split {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.35rem;
+  line-height: 1.1;
+}
+
+.corex-roadmap__phase-late {
+  font-size: 1.25rem;
+}
+
+.corex-roadmap__phase-year {
+  font-size: 1.875rem;
+}
+
+.corex-roadmap__connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  padding-bottom: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.corex-roadmap__stem {
+  width: 1px;
+  height: 5.5625rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(220, 220, 220, 0.35) 45%, rgba(255, 56, 74, 0.4) 100%);
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.08);
+}
+
+.corex-roadmap__node {
+  width: 20px;
+  height: 20px;
+  margin-top: -1px;
+  margin-bottom: -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, #ffffff 0%, #ffd0d6 25%, #ff384a 58%, #b01e2a 100%);
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.65), 0 0 12px rgba(255, 56, 74, 0.95), 0 0 24px rgba(255, 56, 74, 0.6), 0 0 42px rgba(255, 56, 74, 0.25);
+}
+
+.corex-token-poly {
+  display: block;
+  width: 204px;
+  max-width: 80%;
+  margin: 0 auto 1rem;
+  height: auto;
+}
+
+.corex-card--hex {
+  min-height: 488px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 2.5rem;
+}
+
+.corex-eco-intro {
+  max-width: 720px;
+  margin: 0 auto 3.125rem;
+  text-align: center;
+}
+
+.corex-eco-diagram {
+  position: relative;
+  width: 100%;
+  max-width: 1190px;
+  margin: 0 auto;
+  aspect-ratio: 1190/657;
+  min-height: 280px;
+}
+
+.corex-eco-diagram__hub {
+  position: absolute;
+  left: calc(50% + 5.5px);
+  top: 0;
+  transform: translateX(-50%);
+  width: 50%;
+  aspect-ratio: 595/508;
+  max-width: 595px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.corex-eco-diagram__orbit {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 45%), #ff384a;
+  box-shadow: 0 0 6px rgba(255, 56, 74, 0.85), 0 0 14px rgba(255, 56, 74, 0.45);
+}
+
+.corex-eco-diagram__orbit--0 {
+  inset: 95.64% 47.68% 0 48.59%;
+}
+
+.corex-eco-diagram__orbit--1 {
+  inset: 84.46% 77.25% 11.18% 19.02%;
+}
+
+.corex-eco-diagram__orbit--2 {
+  inset: 54.91% 95.22% 40.73% 1.05%;
+}
+
+.corex-eco-diagram__orbit--3 {
+  inset: 15.2% 93.28% 80.43% 2.99%;
+}
+
+.corex-eco-diagram__orbit--4 {
+  inset: 83.9% 18.37% 11.73% 77.9%;
+}
+
+.corex-eco-diagram__orbit--5 {
+  inset: 53.96% 0.82% 41.67% 95.45%;
+}
+
+.corex-eco-diagram__orbit--6 {
+  inset: 17.67% 2.1% 77.96% 94.17%;
+}
+
+.corex-eco-diagram__vector {
+  position: absolute;
+  z-index: 2;
+}
+
+.corex-eco-diagram__vector img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.corex-eco-diagram__vector--a {
+  inset: 16.44% 0 1.26% 0;
+}
+
+.corex-eco-diagram__vector--b {
+  inset: 2.46% 17.69% 21.97% 17.69%;
+}
+
+.corex-eco-diagram__center {
+  position: absolute;
+  z-index: 3;
+  left: 19.94%;
+  right: 20.07%;
+  top: 0;
+  aspect-ratio: 1024/1043;
+}
+
+.corex-eco-diagram__center img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.corex-eco-pin {
+  position: absolute;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.corex-eco-pin__title {
+  margin: 0;
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.corex-eco-pin__text {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #fff;
+}
+
+.corex-eco-pin--wallet {
+  left: 0;
+  top: 8.52%;
+  width: 21.85%;
+  min-height: 21%;
+  text-align: right;
+}
+
+.corex-eco-pin--wallet .corex-eco-pin__title {
+  text-align: center;
+}
+
+.corex-eco-pin--wallet .corex-eco-pin__text {
+  margin-top: 0.5rem;
+}
+
+.corex-eco-pin--dao {
+  left: 78.99%;
+  top: 8.52%;
+  width: 21.01%;
+  min-height: 17.35%;
+  text-align: left;
+}
+
+.corex-eco-pin--dao .corex-eco-pin__text {
+  margin-top: 0.5rem;
+}
+
+.corex-eco-pin--commerce {
+  left: 1.93%;
+  top: 38.05%;
+  width: 21.85%;
+  min-height: 21%;
+  text-align: right;
+}
+
+.corex-eco-pin--commerce .corex-eco-pin__title {
+  text-align: left;
+  padding-left: 8.46%;
+}
+
+.corex-eco-pin--commerce .corex-eco-pin__text {
+  margin-top: 0.5rem;
+}
+
+.corex-eco-pin--lending {
+  left: 77.14%;
+  top: 38.05%;
+  width: 21.01%;
+  min-height: 17.35%;
+  text-align: left;
+}
+
+.corex-eco-pin--lending .corex-eco-pin__text {
+  margin-top: 0.5rem;
+}
+
+.corex-eco-pin--dex {
+  left: 34.29%;
+  top: 76.86%;
+  width: 21.85%;
+  transform: translateX(-100%);
+  text-align: right;
+}
+
+.corex-eco-pin--dex .corex-eco-pin__title {
+  margin-bottom: 0.35rem;
+}
+
+.corex-eco-pin--cex {
+  left: 38.24%;
+  top: 82.65%;
+  width: 24.37%;
+  min-height: 17.35%;
+  text-align: center;
+}
+
+.corex-eco-pin--cex .corex-eco-pin__title {
+  position: relative;
+  left: 50%;
+  transform: translateX(calc(-50% - 4px));
+  width: max-content;
+  margin-bottom: 0.35rem;
+}
+
+.corex-eco-pin--cex .corex-eco-pin__text {
+  margin-top: 0.25rem;
+}
+
+.corex-eco-pin--launchpad {
+  left: 66.64%;
+  top: 70.47%;
+  width: 21.85%;
+  min-height: 17.35%;
+  text-align: left;
+}
+
+.corex-eco-pin--launchpad .corex-eco-pin__text {
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 1023px) {
+  .corex-eco-intro {
+    margin-bottom: 2rem;
+    padding-inline: 0.25rem;
+  }
+
+  .corex-eco-diagram {
+    aspect-ratio: auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    max-width: 100%;
+  }
+
+  .corex-eco-diagram__hub {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: min(100%, 22rem);
+    max-width: 100%;
+    margin-inline: auto;
+    flex-shrink: 0;
+  }
+
+  .corex-eco-pin {
+    position: static;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: 36rem;
+    min-height: 0 !important;
+    transform: none !important;
+    text-align: left !important;
+    padding: 0.75rem 1rem;
+    margin-inline: auto;
+    border-left: 3px solid rgba(255, 56, 74, 0.55);
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 0.375rem;
+  }
+
+  .corex-eco-pin--commerce .corex-eco-pin__title {
+    text-align: left !important;
+    padding-left: 0 !important;
+  }
+
+  .corex-eco-pin--cex .corex-eco-pin__title {
+    position: static !important;
+    left: auto !important;
+    transform: none !important;
+    width: auto !important;
+    margin-bottom: 0.35rem;
+  }
+
+  .corex-eco-pin__title {
+    font-size: 1.25rem;
+  }
+
+  .corex-eco-pin__text {
+    font-size: 0.9375rem;
+  }
+}
+
+.corex-contact {
+  position: relative;
+  min-height: 500px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2.5rem 1rem 4rem;
+}
+
+.corex-contact__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.corex-contact__bg-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.corex-contact__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  text-align: center;
+}
+
+.corex-contact__block {
+  color: #bababa;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.corex-contact__block strong,
+.corex-contact__label {
+  color: #fff;
+  font-weight: 600;
+}
+
+.corex-footer {
+  background: #000;
+}
+
+.corex-footer__main {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 30px clamp(1rem, 8vw, 200px);
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+}
+
+@media (min-width: 320px) and (max-width: 479px) {
+  .corex-footer__main {
+    padding: 30px 0;
+  }
+}
+
+.corex-footer__logo-img {
+  display: block;
+  width: 150px;
+  height: auto;
+}
+
+.corex-footer__meta {
+  font-size: 1rem;
+  line-height: normal;
+}
+
+.corex-footer__meta-line+.corex-footer__meta-line {
+  margin-top: 1rem;
+}
+
+.corex-footer__meta-label {
+  color: #ff384a;
+}
+
+.corex-footer__meta-value {
+  color: #c8c8c8;
+}
+
+.corex-footer__links li+li {
+  margin-top: 1rem;
+}
+
+.corex-footer__links a {
+  color: #c8c8c8;
+  text-decoration: none;
+  font-size: 0.75rem;
+}
+
+.corex-footer__links a::before {
+  content: "•";
+  color: #ff384a;
+  margin-right: 0.25em;
+}
+
+.corex-footer__links a:hover {
+  color: #fff;
+}
+
+.corex-footer__social-img {
+  display: block;
+  width: 150px;
+  max-width: 100%;
+  height: auto;
+}
+
+.corex-footer__bar {
+  position: relative;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.corex-footer__bar-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.corex-footer__copy {
+  position: relative;
+  z-index: 1;
+  color: #ff384a;
+  font-size: 1rem;
+  margin: 0;
+  padding: 1rem;
+  text-align: center;
+}
+
+.corex-illustration {
+  display: block;
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
+  height: auto;
+}
+
+.corex-token-header {
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 767.98px) {
+
+  [data-aos][data-aos][data-aos-delay],
+  [data-aos][data-aos][data-aos-duration] {
+    transition-delay: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

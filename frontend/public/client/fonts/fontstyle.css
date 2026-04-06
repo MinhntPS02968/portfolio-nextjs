@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@font-face {
+    font-family: "Glyphicons Halflings";
+    src: url("glyphicons-halflings-regular.eot");
+    src: url("glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"),
+    url("glyphicons-halflings-regular.woff2") format("woff2"),
+    url("glyphicons-halflings-regular.woff") format("woff"),
+    url("glyphicons-halflings-regular.ttf") format("truetype"),
+    url("glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
+}
+
+html, body {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, .btn, h1, h2, h3, h4, h5, h6, button a {
+    margin: 0px;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+}

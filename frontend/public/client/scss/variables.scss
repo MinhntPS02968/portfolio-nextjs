@@ -1,0 +1,38 @@
+// Site design tokens — shared fallbacks; BDS-specific tokens below. Comments in English only.
+
+$font-body: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+$font-heading: $font-body;
+
+// BDS investment landing (Figma)
+$bds-black: #000000;
+$bds-hero-gradient-bottom: #010101;
+$bds-section-bar: #181818;
+$bds-card-dark: #242424;
+$bds-label-muted: #878787;
+$bds-heading-muted: #7e7e7e;
+$bds-body-muted: #b2b2b2;
+$bds-cream: #fffbf7;
+$bds-accent-yellow: #ffd400;
+$bds-accent-orange: #fdb913;
+$bds-link-gold: #d77700;
+$bds-text-dark: #484848;
+$bds-border-fin: #fdb913;
+$bds-pill-inactive-bg: #636363;
+$bds-font: "Poppins", $font-body;
+$bds-gradient-text: linear-gradient(192deg, #ffd400 14.89%, #fdb913 85.85%);
+$bds-radius-card: 20px;
+$bds-radius-pill: 25px;
+
+// CoreX landing (Figma COREX--Copy-)
+$corex-font: "Roboto", $font-body;
+$corex-accent: #ff384a;
+$corex-accent-green: #95ca3f;
+$corex-muted: #c8c8c8;
+$corex-muted-light: #bababa;
+$corex-border-card: #9a9a9a;
+$corex-card-gradient: radial-gradient(
+  ellipse at top left,
+  rgba(98, 86, 86, 0.45) 0%,
+  rgba(17, 15, 15, 0.65) 100%
+);
+$corex-heading-gradient: linear-gradient(180deg, #ffffff 0%, #999999 100%);
