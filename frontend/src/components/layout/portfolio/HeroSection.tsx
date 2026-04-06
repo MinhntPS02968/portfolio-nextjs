@@ -82,7 +82,6 @@ export default function HeroSection() {
 
             <div className="pf-hero__decoration position-absolute top-0 end-0 w-100 h-100 pe-none opacity-50">
                 <img className="w-100 h-100 object-fit-cover" 
-                     style={{ mixBlendMode: 'screen', objectPosition: 'right center' }} 
                      src="/images/portfolio/hero-bg.jpg" 
                      alt="Decoration" />
             </div>

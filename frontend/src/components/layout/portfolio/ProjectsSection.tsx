@@ -62,18 +62,18 @@ export default function ProjectsSection() {
 
             <div className="row g-5 pf-projects__grid">
                 <div className="col-md-6">
-                    <article className="pf-project-card position-relative overflow-hidden rounded-pill-custom bg-dark border border-secondary border-opacity-25" style={{ height: '500px' }}>
+                    <article className="pf-project-card position-relative overflow-hidden rounded-pill-custom bg-dark border border-secondary border-opacity-25">
                         <div className="pf-project-card__bg position-absolute top-0 start-0 w-100 h-100">
                             <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfoOKfy87OOqP8c4OuCg80NnUvQLwxLvntPX-ILJitmMqAJbqRtZxiPLhylDw0_D17fP_oDqb3r1cXrqMqFKOLT_lApFb4p6u31yOtBBu7rpaT7N77EKPj3pTiow9ALj7lG2vLr1EeOGkiUutKL2fl27mriekY2lK4gtKOffhPpXdumekuFkeupjgZ_x0XZYyq5tYjbMJH_OfMq2CAJtwQ8Ir6guW1HztFbiqefn5zTWxw-Ue5mn_Yvht5vd5UPpmwVxBlDBPclF4_" alt="E-commerce Engine" className="w-100 h-100 object-fit-cover pf-project-card__img" />
                             <div className="position-absolute bottom-0 start-0 w-100 h-100 bg-gradient-dark-up opacity-60"></div>
                         </div>
-                        <div className="pf-project-card__overlay position-absolute bottom-0 start-0 p-5 d-flex flex-column justify-content-end w-100 h-100 pf-glass-blur opacity-0" style={{ transform: 'translateY(20px)', transition: 'all 0.4s ease' }}>
+                        <div className="pf-project-card__overlay position-absolute bottom-0 start-0 p-5 d-flex flex-column justify-content-end w-100 h-100 pf-glass-blur opacity-0">
                             <div className="flex-wrap gap-2 mb-3 d-none d-md-flex">
                                 <span className="badge bg-dark border px-3 py-2 text-uppercase d-flex align-items-center gap-2">
-                                    <span className="pf-tag-dot bg-primary rounded-circle" style={{ width: '6px', height: '6px' }}></span> Next.js
+                                    <span className="pf-tag-dot bg-primary rounded-circle"></span> Next.js
                                 </span>
                                 <span className="badge bg-dark border px-3 py-2 text-uppercase d-flex align-items-center gap-2">
-                                    <span className="pf-tag-dot bg-primary rounded-circle" style={{ width: '6px', height: '6px' }}></span> REST APIs
+                                    <span className="pf-tag-dot bg-primary rounded-circle"></span> REST APIs
                                 </span>
                             </div>
                             <h3 className="pf-project-card__title fw-bold text-white fs-2 mb-3">E-commerce Engine</h3>
@@ -89,18 +89,18 @@ export default function ProjectsSection() {
                 </div>
 
                 <div className="col-md-6 mt-md-5 pt-md-5">
-                    <article className="pf-project-card position-relative overflow-hidden rounded-pill-custom bg-dark border border-secondary border-opacity-25" style={{ height: '500px' }}>
+                    <article className="pf-project-card position-relative overflow-hidden rounded-pill-custom bg-dark border border-secondary border-opacity-25">
                         <div className="pf-project-card__bg position-absolute top-0 start-0 w-100 h-100">
                             <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBD-BhqKBr5mVMivIlbTF-l8rHacxKCPPY8EyyzSIlVFIQJwPsjgbEErTaBVkkeqaz194v4gA_RJGKfzS3UjdFYrKB1ClgQqGFqSGt8rPUi54k87PUEgx6KXVddNCTKFlwbJwZehL_VbQe5445b00tvJlSxJMbqPlR5lRmTq6PRCHeX7-Ix_nhJab_3g_m2yuk64oplbo8Ip5GM10HeNkMD0xlVRmeKrxW8ee_sM-6JT6pNxT0QoTyMhjlRpyKcRLHdxr43wmXLHwTP" alt="Data Visualization Dashboard" className="w-100 h-100 object-fit-cover pf-project-card__img" />
                             <div className="position-absolute bottom-0 start-0 w-100 h-100 bg-gradient-dark-up opacity-60"></div>
                         </div>
-                        <div className="pf-project-card__overlay position-absolute bottom-0 start-0 p-5 d-flex flex-column justify-content-end w-100 h-100 pf-glass-blur opacity-0" style={{ transform: 'translateY(20px)', transition: 'all 0.4s ease' }}>
+                        <div className="pf-project-card__overlay position-absolute bottom-0 start-0 p-5 d-flex flex-column justify-content-end w-100 h-100 pf-glass-blur opacity-0">
                             <div className="flex-wrap gap-2 mb-3 d-none d-md-flex">
                                 <span className="badge bg-dark border px-3 py-2 text-uppercase d-flex align-items-center gap-2">
-                                    <span className="pf-tag-dot bg-info rounded-circle" style={{ width: '6px', height: '6px' }}></span> D3.js
+                                    <span className="pf-tag-dot bg-info rounded-circle"></span> D3.js
                                 </span>
                                 <span className="badge bg-dark border px-3 py-2 text-uppercase d-flex align-items-center gap-2">
-                                    <span className="pf-tag-dot bg-info rounded-circle" style={{ width: '6px', height: '6px' }}></span> SCSS Modules
+                                    <span className="pf-tag-dot bg-info rounded-circle"></span> SCSS Modules
                                 </span>
                             </div>
                             <h3 className="pf-project-card__title fw-bold text-white fs-2 mb-3">Data Vis Dashboard</h3>
@@ -116,18 +116,18 @@ export default function ProjectsSection() {
                 </div>
 
                 <div className="col-md-6 mt-md-n5">
-                    <article className="pf-project-card position-relative overflow-hidden rounded-pill-custom bg-dark border border-secondary border-opacity-25" style={{ height: '500px' }}>
+                    <article className="pf-project-card position-relative overflow-hidden rounded-pill-custom bg-dark border border-secondary border-opacity-25">
                         <div className="pf-project-card__bg position-absolute top-0 start-0 w-100 h-100">
                             <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdQqU0pVwDvJynB6vPKjHjAdcc5BzF_ZzDhUhsEiPC14ZYzUUUp3X7FcB3RQH5jz8p1La4ffeNP4P8x5IR19nqPh44Ue6hA_y3seEk3vrKdManpCICulDA3gRDLU3GCO7sZKKFrJbY1YkQ7qlMD93Xt_O0Qw7R1eCgAG81rjMgxMr6NpPbsxgQhdOl04hkOADXbClrZHRuMsSz980tr6squysTRrtNbnfvuIfQlshSMgzfbGK8Nz08CCjZXXj6hsjRr-1a5bP1ycfk" alt="SaaS Interface Framework" className="w-100 h-100 object-fit-cover pf-project-card__img" />
                             <div className="position-absolute bottom-0 start-0 w-100 h-100 bg-gradient-dark-up opacity-60"></div>
                         </div>
-                        <div className="pf-project-card__overlay position-absolute bottom-0 start-0 p-5 d-flex flex-column justify-content-end w-100 h-100 pf-glass-blur opacity-0" style={{ transform: 'translateY(20px)', transition: 'all 0.4s ease' }}>
+                        <div className="pf-project-card__overlay position-absolute bottom-0 start-0 p-5 d-flex flex-column justify-content-end w-100 h-100 pf-glass-blur opacity-0">
                             <div className="flex-wrap gap-2 mb-3 d-none d-md-flex">
                                 <span className="badge bg-dark border px-3 py-2 text-uppercase d-flex align-items-center gap-2">
-                                    <span className="pf-tag-dot bg-warning rounded-circle" style={{ width: '6px', height: '6px' }}></span> Framer Motion
+                                    <span className="pf-tag-dot bg-warning rounded-circle"></span> Framer Motion
                                 </span>
                                 <span className="badge bg-dark border px-3 py-2 text-uppercase d-flex align-items-center gap-2">
-                                    <span className="pf-tag-dot bg-warning rounded-circle" style={{ width: '6px', height: '6px' }}></span> React
+                                    <span className="pf-tag-dot bg-warning rounded-circle"></span> React
                                 </span>
                             </div>
                             <h3 className="pf-project-card__title fw-bold text-white fs-2 mb-3">SaaS Framework</h3>
@@ -143,18 +143,18 @@ export default function ProjectsSection() {
                 </div>
 
                 <div className="col-md-6 mt-md-0 pt-md-5">
-                    <article className="pf-project-card position-relative overflow-hidden rounded-pill-custom bg-dark border border-secondary border-opacity-25" style={{ height: '500px' }}>
+                    <article className="pf-project-card position-relative overflow-hidden rounded-pill-custom bg-dark border border-secondary border-opacity-25">
                         <div className="pf-project-card__bg position-absolute top-0 start-0 w-100 h-100">
                             <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdr4DEVD_gzk4fOHscUAz0RHpaKUhocnqy6ftXgpNjPTJRzpHe47OQRfv7SGb-1bjgrg2X2hHabZrK2oc-H3KjfJtOJYJ-Ti7k4urP5EdyMKZpg5oR8UUwKqHpz_RKYHRcaL8wGyYFlCcSprf65bsMS97HELjOZ_Gj_q_sJLVooG79VLuZTSuSYQirUCqdqWzHyEAn3zGpkTLlNXVYl9aZISdsGPX3n_mdSnDtjhoWv6EdqGSSQl1jpj-Z3tyiSF-dm-XglyaGpUoz" alt="Generative Art Pipeline" className="w-100 h-100 object-fit-cover pf-project-card__img" />
                             <div className="position-absolute bottom-0 start-0 w-100 h-100 bg-gradient-dark-up opacity-60"></div>
                         </div>
-                        <div className="pf-project-card__overlay position-absolute bottom-0 start-0 p-5 d-flex flex-column justify-content-end w-100 h-100 pf-glass-blur opacity-0" style={{ transform: 'translateY(20px)', transition: 'all 0.4s ease' }}>
+                        <div className="pf-project-card__overlay position-absolute bottom-0 start-0 p-5 d-flex flex-column justify-content-end w-100 h-100 pf-glass-blur opacity-0">
                             <div className="flex-wrap gap-2 mb-3 d-none d-md-flex">
                                 <span className="badge bg-dark border px-3 py-2 text-uppercase d-flex align-items-center gap-2">
-                                    <span className="pf-tag-dot bg-danger rounded-circle" style={{ width: '6px', height: '6px' }}></span> WebGPU
+                                    <span className="pf-tag-dot bg-danger rounded-circle"></span> WebGPU
                                 </span>
                                 <span className="badge bg-dark border px-3 py-2 text-uppercase d-flex align-items-center gap-2">
-                                    <span className="pf-tag-dot bg-danger rounded-circle" style={{ width: '6px', height: '6px' }}></span> TypeScript
+                                    <span className="pf-tag-dot bg-danger rounded-circle"></span> TypeScript
                                 </span>
                             </div>
                             <h3 className="pf-project-card__title fw-bold text-white fs-2 mb-3">Generative Art Pipeline</h3>
