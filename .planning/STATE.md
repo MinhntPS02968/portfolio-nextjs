@@ -5,7 +5,7 @@ milestone_name: milestone
 status: planning
 stopped_at: Phase 1 UI-SPEC approved
 last_updated: "2026-04-13T10:27:55.968Z"
-last_activity: 2026-04-13 - Initial roadmap created from v1 requirements
+last_activity: 2026-04-13 - Completed quick task 260413-oil: thêm hiệu ứng neon, paralax scrolling
 progress:
   total_phases: 4
   completed_phases: 0
@@ -28,7 +28,7 @@ See: `.planning/PROJECT.md` (updated 2026-04-13)
 Phase: 1 of 4 (Hero & About Foundation)
 Plan: 0 of TBD in current phase
 Status: Ready to plan
-Last activity: 2026-04-13 - Initial roadmap created from v1 requirements
+Last activity: 2026-04-13 - Completed quick task 260413-oil: thêm hiệu ứng neon, paralax scrolling
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -71,6 +71,12 @@ None yet.
 
 - Need strict validation that neon/parallax effects do not reduce readability on mobile.
 - Animation quality must stay performance-safe on common mobile devices.
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260413-oil | thêm hiệu ứng neon, paralax scrolling | 2026-04-13 | af8a26f | [260413-oil-th-m-hi-u-ng-neon-paralax-scrolling](./quick/260413-oil-th-m-hi-u-ng-neon-paralax-scrolling/) |
 
 ## Session Continuity
 
