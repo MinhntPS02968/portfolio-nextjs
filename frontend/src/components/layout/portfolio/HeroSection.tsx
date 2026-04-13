@@ -1,16 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
 export default function HeroSection() {
     const container = useRef<HTMLDivElement>(null);
+    const rafRef = useRef<number | null>(null);
+    const latestScrollY = useRef(0);
 
     useGSAP(() => {
-        // Debug: Kiểm tra xem các phần tử có tồn tại không
-        const techCards = gsap.utils.toArray('.pf-tech-card');
-        console.log('GSAP Hero Init - Tech Cards found:', techCards.length);
-
-        // Thiết lập trạng thái ẩn ban đầu một cách tường minh
         gsap.set(['.pf-hero__availability', '.pf-hero__headline', '.pf-hero__lead', '.pf-btn', '.pf-tech-card', '.pf-hero__circle'], { 
             autoAlpha: 0, 
             y: 30 
@@ -18,13 +15,7 @@ export default function HeroSection() {
         gsap.set('.pf-hero__circle', { scale: 0, y: 0 });
 
         const tl = gsap.timeline({ 
-            delay: 0.8, // Chờ lâu hơn một chút để chắc chắn mọi thứ đã render
-            onStart: () => console.log('Hero animation timeline started'),
-            onComplete: () => {
-                console.log('Hero animation completed');
-                // Force hiển thị lại nếu có lỗi
-                gsap.set('.pf-tech-card', { autoAlpha: 1, visibility: 'visible' });
-            }
+            delay: 0.8
         });
 
         tl.to('.pf-hero__availability', {
@@ -52,10 +43,12 @@ export default function HeroSection() {
             stagger: 0.1,
             ease: 'power3.out'
         }, '-=0.5')
-        .add(() => {
-            // Force hiện tech-cards ngay lập tức để debug
-            console.log('GSAP Debug: Forcing tech cards visibility');
-            gsap.set('.pf-tech-card', { autoAlpha: 1, y: 0, visibility: 'visible' });
+        .to('.pf-tech-card', {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.6,
+            stagger: 0.08,
+            ease: 'power3.out'
         }, '-=0.4')
         .to('.pf-hero__circle', {
             autoAlpha: 1,
@@ -67,11 +60,56 @@ export default function HeroSection() {
 
     }, { scope: container });
 
+    useEffect(() => {
+        const root = container.current;
+        if (!root) return;
+
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const isMobile = window.matchMedia('(max-width: 767.98px)').matches;
+
+        if (reduceMotion || isMobile) {
+            root.style.setProperty('--pf-parallax-shift', '0px');
+            root.style.setProperty('--pf-parallax-glow-shift', '0px');
+            return;
+        }
+
+        const maxShift = 28;
+        const glowRatio = 0.6;
+        const sectionStart = root.offsetTop;
+        const sectionHeight = root.offsetHeight || 1;
+
+        const applyParallax = () => {
+            const distance = latestScrollY.current - sectionStart;
+            const progress = Math.max(-1, Math.min(1, distance / sectionHeight));
+            const shift = progress * maxShift;
+
+            root.style.setProperty('--pf-parallax-shift', `${shift.toFixed(2)}px`);
+            root.style.setProperty('--pf-parallax-glow-shift', `${(shift * glowRatio).toFixed(2)}px`);
+            rafRef.current = null;
+        };
+
+        const onScroll = () => {
+            latestScrollY.current = window.scrollY;
+            if (rafRef.current !== null) return;
+            rafRef.current = window.requestAnimationFrame(applyParallax);
+        };
+
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+            if (rafRef.current !== null) {
+                window.cancelAnimationFrame(rafRef.current);
+            }
+        };
+    }, []);
+
     return (
         <section className="pf-hero" id="hero" ref={container}>
             <div className="pf-hero__bg">
-                <div className="pf-hero__glow position-absolute top-50 start-50 translate-middle"></div>
-                <div className="pf-hero__circles position-absolute w-100 h-100 d-flex align-items-center justify-content-center top-0 start-0">
+                <div className="pf-hero__glow pf-hero__parallax-layer pf-hero__parallax-layer--glow position-absolute top-50 start-50 translate-middle"></div>
+                <div className="pf-hero__circles pf-hero__parallax-layer pf-hero__parallax-layer--circles position-absolute w-100 h-100 d-flex align-items-center justify-content-center top-0 start-0">
                     <div className="pf-hero__circle pf-hero__circle--1 rounded-circle d-flex align-items-center justify-content-center">
                         <div className="pf-hero__circle pf-hero__circle--2 rounded-circle d-flex align-items-center justify-content-center">
                             <div className="pf-hero__circle pf-hero__circle--3 rounded-circle"></div>
@@ -80,7 +118,7 @@ export default function HeroSection() {
                 </div>
             </div>
 
-            <div className="pf-hero__decoration position-absolute top-0 end-0 w-100 h-100 pe-none opacity-50">
+            <div className="pf-hero__decoration pf-hero__parallax-layer pf-hero__parallax-layer--decoration position-absolute top-0 end-0 w-100 h-100 pe-none opacity-50">
                 <img className="w-100 h-100 object-fit-cover" 
                      src="/images/portfolio/hero-bg.jpg" 
                      alt="Decoration" />

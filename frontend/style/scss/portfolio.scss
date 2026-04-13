@@ -6,6 +6,10 @@ $pf-primary-dim: #0f6df3;
 $pf-secondary: #a68cff;
 $pf-tertiary: #81ecff;
 $pf-text-glow: rgba(137, 172, 255, 0.3);
+$pf-neon-glow-desktop: rgba(137, 172, 255, 0.28);
+$pf-neon-glow-mobile: rgba(137, 172, 255, 0.2);
+$pf-neon-blur-desktop: 18px;
+$pf-neon-blur-mobile: 12px;
 
 // Background Colors
 $pf-bg-dark: #0d0e12;
@@ -56,6 +60,14 @@ $pf-outline-variant: rgba(71, 72, 76, 0.15);
 .pf-glass-card {
     background: rgba(36, 37, 43, 0.4);
     @extend .pf-glass-blur;
+}
+
+.pf-neon-soft {
+    text-shadow: 0 0 $pf-neon-blur-desktop $pf-neon-glow-desktop;
+}
+
+.pf-neon-active {
+    text-shadow: 0 0 calc(#{$pf-neon-blur-desktop} + 8px) rgba(137, 172, 255, 0.45);
 }
 
 .bg-gradient-dark-up {
@@ -110,6 +122,8 @@ $pf-outline-variant: rgba(71, 72, 76, 0.15);
     position: relative;
     overflow: hidden;
     color: #faf8fe;
+    --pf-parallax-shift: 0px;
+    --pf-parallax-glow-shift: 0px;
 
     &__bg {
         position: absolute;
@@ -127,6 +141,15 @@ $pf-outline-variant: rgba(71, 72, 76, 0.15);
         filter: blur(120px);
     }
 
+    &__parallax-layer {
+        will-change: transform;
+        transform: translate3d(0, var(--pf-parallax-shift), 0);
+    }
+
+    &__parallax-layer--glow {
+        transform: translate3d(0, var(--pf-parallax-glow-shift), 0);
+    }
+
     &__circles {
         animation: pf-pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
@@ -140,8 +163,8 @@ $pf-outline-variant: rgba(71, 72, 76, 0.15);
     }
 
     &__availability {
-        background: rgba(30, 31, 37, 0.5);
-        border: 1px solid $pf-outline-variant;
+        background: rgba(30, 31, 37, 0.7);
+        border: 1px solid rgba(137, 172, 255, 0.22);
     }
 
     &__dot {
@@ -169,7 +192,7 @@ $pf-outline-variant: rgba(71, 72, 76, 0.15);
 
     &__lead {
         font-size: 1rem;
-        color: #abaab0;
+        color: #c1c2c7;
         max-width: 42rem;
     }
 
@@ -463,7 +486,22 @@ $pf-outline-variant: rgba(71, 72, 76, 0.15);
         &--active, &.active {
             color: $pf-primary !important;
             font-weight: bold;
-            text-shadow: 0 0 15px rgba(15, 109, 243, 0.3);
+            @extend .pf-neon-active;
         }
+    }
+}
+
+@media (max-width: 767.98px) {
+    .pf-neon-soft {
+        text-shadow: 0 0 $pf-neon-blur-mobile $pf-neon-glow-mobile;
+    }
+
+    .pf-neon-active {
+        text-shadow: 0 0 calc(#{$pf-neon-blur-mobile} + 6px) rgba(137, 172, 255, 0.35);
+    }
+
+    .pf-hero {
+        --pf-parallax-shift: 0px;
+        --pf-parallax-glow-shift: 0px;
     }
 }
