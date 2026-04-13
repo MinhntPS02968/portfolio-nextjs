@@ -63,14 +63,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PORT-03 | Phase 2 | Pending |
 | PORT-04 | Phase 2 | Pending |
 | PORT-05 | Phase 2 | Pending |
-| VIS-01 | Phase 1 | Pending |
+| VIS-01 | Phase 3 | Pending |
 | VIS-02 | Phase 3 | Pending |
 | VIS-03 | Phase 3 | Pending |
-| MOT-01 | Phase 3 | Pending |
-| MOT-02 | Phase 3 | Pending |
-| MOT-03 | Phase 3 | Pending |
+| MOT-01 | Phase 4 | Pending |
+| MOT-02 | Phase 4 | Pending |
+| MOT-03 | Phase 4 | Pending |
 | PERF-01 | Phase 4 | Pending |
-| PERF-02 | Phase 4 | Pending |
+| PERF-02 | Phase 2 | Pending |
 | PERF-03 | Phase 4 | Pending |
 
 **Coverage:**
@@ -80,4 +80,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-04-13*
-*Last updated: 2026-04-13 after initial definition*
+*Last updated: 2026-04-13 after roadmap creation*
