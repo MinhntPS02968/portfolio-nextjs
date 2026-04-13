@@ -62,7 +62,7 @@ export default function Header() {
       <div className="container px-4 py-3 d-flex align-items-center justify-content-between">
         {/* Logo */}
         <a href="#hero" className="text-decoration-none">
-          <div className="pf-header__logo fs-4 fw-bold">The Digital Architect</div>
+          <div className="pf-header__logo pf-neon-soft fs-4 fw-bold">The Digital Architect</div>
         </a>
 
         {/* Desktop Navigation */}
@@ -71,7 +71,7 @@ export default function Header() {
             <a 
               key={item.href} 
               href={`#${item.href}`}
-              className={`nav-link pf-header__link ${activeSection === item.href ? 'active' : ''}`}
+              className={`nav-link pf-header__link pf-neon-soft ${activeSection === item.href ? 'active pf-neon-active' : ''}`}
             >
               {item.text}
             </a>
@@ -105,7 +105,7 @@ export default function Header() {
         ref={offcanvasRef}
       >
         <div className="offcanvas-header border-bottom border-secondary border-opacity-25">
-          <h5 className="offcanvas-title pf-header__logo fs-5" id="pfOffcanvasLabel">The Digital Architect</h5>
+          <h5 className="offcanvas-title pf-header__logo pf-neon-soft fs-5" id="pfOffcanvasLabel">The Digital Architect</h5>
           <button 
             type="button" 
             className="btn-close btn-close-white" 
@@ -119,7 +119,7 @@ export default function Header() {
               <li key={item.href}>
                 <a 
                   href={`#${item.href}`}
-                  className={`nav-link pf-header__link d-block w-100 py-2 border-bottom border-secondary border-opacity-10 ${activeSection === item.href ? 'active' : ''}`}
+                  className={`nav-link pf-header__link pf-neon-soft d-block w-100 py-2 border-bottom border-secondary border-opacity-10 ${activeSection === item.href ? 'active pf-neon-active' : ''}`}
                   onClick={closeOffcanvas}
                 >
                   {item.text}
