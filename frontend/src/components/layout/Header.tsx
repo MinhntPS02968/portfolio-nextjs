@@ -14,7 +14,7 @@ export default function Header() {
   const offcanvasRef = useRef<HTMLDivElement>(null);
   const bsOffcanvas = useRef<any>(null);
 
-  // Helper hàm đóng menu
+  // Keep a single close handler for both desktop and offcanvas actions.
   const closeOffcanvas = () => {
     if (bsOffcanvas.current) {
         bsOffcanvas.current.hide();
@@ -22,7 +22,7 @@ export default function Header() {
   };
 
   useEffect(() => {
-    // 1. Setup IntersectionObserver for perfect React ScrollSpy
+    // Track the currently visible section to keep navigation state in sync.
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -31,21 +31,20 @@ export default function Header() {
       });
     }, {
       root: null,
-      rootMargin: "-20% 0px -60% 0px", // Kích hoạt sớm hơn khi roll
+      rootMargin: "-20% 0px -60% 0px",
       threshold: 0
     });
 
-    // Theo dõi toàn bộ các section ID
+    // Observe every section referenced by the menu map.
     menuItems.forEach((item) => {
       const section = document.getElementById(item.href);
       if (section) observer.observe(section);
     });
 
-    // 2. Handle Offcanvas Initialization
+    // Create one offcanvas instance and reuse it across interactions.
     if (typeof window !== "undefined" && offcanvasRef.current) {
       const bootstrap = (window as any).bootstrap;
       if (bootstrap && bootstrap.Offcanvas) {
-          // Khởi tạo instance duy nhất
           if (!bsOffcanvas.current) {
               bsOffcanvas.current = new bootstrap.Offcanvas(offcanvasRef.current);
           }
