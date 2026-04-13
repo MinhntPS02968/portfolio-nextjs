@@ -56,7 +56,7 @@ Exceptions: Mobile icon/toggle targets may use minimum 44x44px hit area for touc
 | Body | 16px | 400 | 1.5 |
 | Label | 14px | 400 | 1.4 |
 | Heading | 20px | 600 | 1.2 |
-| Display | 44px (clamp down to 32px on small screens) | 600 | 1.2 |
+| Display | 32px | 600 | 1.2 |
 
 ---
 
@@ -86,6 +86,8 @@ Accent reserved for: Hero role/value highlight, primary CTA background, active n
 ---
 
 ## Interaction Contract
+
+Hero focal point: Role title and short value statement in the hero text block are the primary visual focus on first view; decorative neon/parallax layers must remain secondary and must not compete with this content.
 
 | Area | Contract |
 |------|----------|
