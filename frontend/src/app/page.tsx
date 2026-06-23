@@ -40,7 +40,7 @@ export default function HomePage() {
             <HeroSection />
             <WorksSection />
             <JournalSection />
-            <ExplorationsSection />
+            <ExplorationsSection ready={landingPhase !== "loading"} />
             <StatsSection />
             <ContactSection />
         </div>

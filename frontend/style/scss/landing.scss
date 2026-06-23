@@ -745,6 +745,7 @@ body {
   text-align: center;
   position: relative;
   z-index: 10;
+  width: 100%;
 }
 
 .explorations-layer {
@@ -759,20 +760,19 @@ body {
   display: grid;
   gap: 5rem;
   justify-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .explore-card {
   width: 80%;
-  transform: rotate(-2deg);
   pointer-events: auto;
+  transform-origin: center center;
+  will-change: transform;
 
   @include sm {
     width: 100%;
   }
-}
-
-.explore-card:nth-child(even) {
-  transform: rotate(2deg);
 }
 
 .explore-card__content {
@@ -787,6 +787,14 @@ body {
   justify-content: flex-end;
   padding: 2rem;
   color: #fff;
+
+  h4,
+  p,
+  ul {
+    margin: 0;
+    padding: 0;
+    color: inherit;
+  }
 }
 
 .explore-card__role {

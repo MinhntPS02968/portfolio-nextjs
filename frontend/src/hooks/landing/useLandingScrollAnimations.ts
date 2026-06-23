@@ -61,33 +61,6 @@ export function useLandingScrollAnimations(ready: boolean) {
                         })
                     })
 
-                const pinTarget = document.getElementById("explorationsPin")
-                if (pinTarget) {
-                    ScrollTrigger.create({
-                        trigger: "#explorations",
-                        start: "top top",
-                        end: "bottom bottom",
-                        pin: pinTarget,
-                        pinSpacing: false,
-                    })
-                }
-
-                gsap.utils
-                    .toArray<HTMLElement>(".js-parallax-card")
-                    .forEach((card) => {
-                        const speed = Number(card.dataset.parallaxSpeed || 14)
-                        gsap.to(card, {
-                            yPercent: -speed,
-                            ease: "none",
-                            scrollTrigger: {
-                                trigger: card,
-                                scrub: true,
-                                start: "top bottom",
-                                end: "bottom top",
-                            },
-                        })
-                    })
-
                 const marqueeTrack = document.querySelector(".js-marquee-track")
                 if (marqueeTrack) {
                     gsap.fromTo(
