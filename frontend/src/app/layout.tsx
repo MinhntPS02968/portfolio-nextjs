@@ -11,24 +11,24 @@ import '../../style/scss/style.scss'
 const siteBasePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 export const metadata: Metadata = {
-    title: process.env.NEXT_PUBLIC_SITE_TITLE || 'CorexCenter',
+    title: process.env.NEXT_PUBLIC_SITE_TITLE || 'Frontend Deverlop',
     description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION,
     metadataBase: new URL(
         `https://minhntps02968.github.io${siteBasePath}`,
     ),
     icons: {
-        icon: assetPath('/images/favicon.png'),
-        shortcut: assetPath('/images/favicon.png'),
-        apple: assetPath('/images/favicon.png'),
+        icon: assetPath('/images/favicon1.png'),
+        shortcut: assetPath('/images/favicon1.png'),
+        apple: assetPath('/images/favicon1.png'),
     },
     openGraph: {
-        title: process.env.NEXT_PUBLIC_SITE_TITLE || 'CorexCenter',
+        title: process.env.NEXT_PUBLIC_SITE_TITLE || 'Frontend Deverlop',
         description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION,
         images: [assetPath('/images/favicon.png')],
     },
     twitter: {
         card: 'summary',
-        title: process.env.NEXT_PUBLIC_SITE_TITLE || 'CorexCenter',
+        title: process.env.NEXT_PUBLIC_SITE_TITLE || 'Frontend Deverlop',
         description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION,
         images: [assetPath('/images/favicon.png')],
     },
@@ -39,7 +39,7 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode
 }>) {
-    const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || 'CorexCenter'
+    const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || 'Frontend Deverlop'
     const siteDescription = process.env.NEXT_PUBLIC_SITE_DESCRIPTION
 
     return (
