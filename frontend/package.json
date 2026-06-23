@@ -22,6 +22,7 @@
     "ethers": "^6.16.0",
     "flag-icons": "^7.5.0",
     "gsap": "^3.14.2",
+    "hls.js": "^1.6.16",
     "i18next": "^25.6.2",
     "js-cookie": "^3.0.5",
     "lightweight-charts": "^5.0.9",

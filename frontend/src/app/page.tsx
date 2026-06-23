@@ -1,67 +1,48 @@
-"use client";
+"use client"
 
-import Script from "next/script";
-import { useTranslation } from "react-i18next";
-import HeroSection from "@/components/layout/portfolio/HeroSection";
-import SkillsSection from "@/components/layout/portfolio/SkillsSection";
-import ProjectsSection from "@/components/layout/portfolio/ProjectsSection";
-import ContactSection from "@/components/layout/portfolio/ContactSection";
-import Header from "@/components/layout/Header";
-import { useEffect, useState } from "react";
-import {
-  I18N_LANG_CODES,
-  I18nLangCode,
-  normalizeI18nLang,
-} from "@/utils/i18n";
+import { useCallback, useState } from "react"
+import Header from "@/components/layout/Header"
+import LoadingScreen from "@/components/layout/portfolio/LoadingScreen"
+import ZoomIntroSection from "@/components/layout/portfolio/ZoomIntroSection"
+import HeroSection from "@/components/layout/portfolio/HeroSection"
+import WorksSection from "@/components/layout/portfolio/WorksSection"
+import JournalSection from "@/components/layout/portfolio/JournalSection"
+import ExplorationsSection from "@/components/layout/portfolio/ExplorationsSection"
+import StatsSection from "@/components/layout/portfolio/StatsSection"
+import ContactSection from "@/components/layout/portfolio/ContactSection"
+import { useLandingScrollAnimations } from "@/hooks/landing/useLandingScrollAnimations"
 
-/** hrefLang BCP 47 tương ứng từng mã UI (gb→en, …) */
-const HREF_LANG: Record<I18nLangCode, string> = {
-  gb: "en",
-  vn: "vi",
-  kr: "ko",
-  jp: "ja",
-  cn: "zh",
-  fr: "fr",
-};
+type LandingPhase = "loading" | "zoom" | "main"
 
 export default function HomePage() {
-  const { t, i18n } = useTranslation();
-  const [currentLang, setCurrentLang] = useState<I18nLangCode>("gb");
+    const [landingPhase, setLandingPhase] = useState<LandingPhase>("loading")
 
-  useEffect(() => {
-    setCurrentLang(normalizeI18nLang(i18n.language || "gb"));
-  }, [i18n.language]);
+    const handleLoaderComplete = useCallback(() => {
+        setLandingPhase("zoom")
+    }, [])
 
-  const changeLanguage = (lang: I18nLangCode) => {
-    i18n.changeLanguage(lang);
-    localStorage.setItem("i18nextLng", lang);
-    setCurrentLang(lang);
+    const handleZoomActiveChange = useCallback((active: boolean) => {
+        setLandingPhase(active ? "zoom" : "main")
+    }, [])
 
-    const dropdownElement = document.querySelector(
-      '[data-bs-toggle="dropdown"]'
-    );
-    if (dropdownElement) {
-      const dropdown = (window as any).bootstrap?.Dropdown?.getInstance(
-        dropdownElement
-      );
-      if (dropdown) {
-        dropdown.hide();
-      }
-    }
-  };
+    useLandingScrollAnimations(landingPhase !== "loading")
 
-  return (
-      <>
-
-          <div className="landing">
-              <Header/>
-              <main className="portfolio-main mx-auto bg-black border-top">
-                  <HeroSection />
-                  <SkillsSection />
-                  <ProjectsSection />
-                  <ContactSection />
-              </main>
-          </div>
-      </>
-  )
+    return (
+        <div
+            className={`portfolio-landing ${landingPhase === "zoom" ? "is-zoom-active" : ""}`}
+        >
+            <LoadingScreen onComplete={handleLoaderComplete} />
+            <ZoomIntroSection
+                ready={landingPhase !== "loading"}
+                onZoomActiveChange={handleZoomActiveChange}
+            />
+            <Header />
+            <HeroSection />
+            <WorksSection />
+            <JournalSection />
+            <ExplorationsSection />
+            <StatsSection />
+            <ContactSection />
+        </div>
+    )
 }

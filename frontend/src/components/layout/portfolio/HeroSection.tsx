@@ -1,213 +1,79 @@
-import React, { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
+"use client"
+
+import { useRef } from "react"
+import { HERO_ROLES, MUX_STREAM_URL } from "@/constants/landing"
+import { useHlsVideo } from "@/hooks/landing/useHlsVideo"
+import { useRoleCycle } from "@/hooks/landing/useRoleCycle"
 
 export default function HeroSection() {
-    const container = useRef<HTMLDivElement>(null);
-    const rafRef = useRef<number | null>(null);
-    const latestScrollY = useRef(0);
+    const videoRef = useRef<HTMLVideoElement>(null)
+    const roleRef = useRef<HTMLSpanElement>(null)
 
-    useGSAP(() => {
-        gsap.set(['.pf-hero__availability', '.pf-hero__headline', '.pf-hero__lead', '.pf-btn', '.pf-tech-card', '.pf-hero__circle'], { 
-            autoAlpha: 0, 
-            y: 30 
-        });
-        gsap.set('.pf-hero__circle', { scale: 0, y: 0 });
-
-        const tl = gsap.timeline({ 
-            delay: 0.8
-        });
-
-        tl.to('.pf-hero__availability', {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.8,
-            ease: 'power3.out'
-        })
-        .to('.pf-hero__headline', {
-            autoAlpha: 1,
-            y: 0,
-            duration: 1,
-            ease: 'power3.out'
-        }, '-=0.5')
-        .to('.pf-hero__lead', {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.8,
-            ease: 'power3.out'
-        }, '-=0.7')
-        .to('.pf-btn', {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: 'power3.out'
-        }, '-=0.5')
-        .to('.pf-tech-card', {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.6,
-            stagger: 0.08,
-            ease: 'power3.out'
-        }, '-=0.4')
-        .to('.pf-hero__circle', {
-            autoAlpha: 1,
-            scale: 1,
-            duration: 1.2,
-            stagger: 0.15,
-            ease: 'elastic.out(1, 0.75)'
-        }, '-=1');
-
-    }, { scope: container });
-
-    useEffect(() => {
-        const root = container.current;
-        if (!root) return;
-
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const isMobile = window.matchMedia('(max-width: 767.98px)').matches;
-
-        if (reduceMotion || isMobile) {
-            root.style.setProperty('--pf-parallax-shift', '0px');
-            root.style.setProperty('--pf-parallax-glow-shift', '0px');
-            return;
-        }
-
-        const maxShift = 28;
-        const glowRatio = 0.6;
-        const sectionStart = root.offsetTop;
-        const sectionHeight = root.offsetHeight || 1;
-
-        const applyParallax = () => {
-            const distance = latestScrollY.current - sectionStart;
-            const progress = Math.max(-1, Math.min(1, distance / sectionHeight));
-            const shift = progress * maxShift;
-
-            root.style.setProperty('--pf-parallax-shift', `${shift.toFixed(2)}px`);
-            root.style.setProperty('--pf-parallax-glow-shift', `${(shift * glowRatio).toFixed(2)}px`);
-            rafRef.current = null;
-        };
-
-        const onScroll = () => {
-            latestScrollY.current = window.scrollY;
-            if (rafRef.current !== null) return;
-            rafRef.current = window.requestAnimationFrame(applyParallax);
-        };
-
-        onScroll();
-        window.addEventListener('scroll', onScroll, { passive: true });
-
-        return () => {
-            window.removeEventListener('scroll', onScroll);
-            if (rafRef.current !== null) {
-                window.cancelAnimationFrame(rafRef.current);
-            }
-        };
-    }, []);
+    useHlsVideo(videoRef, MUX_STREAM_URL)
+    useRoleCycle(roleRef, HERO_ROLES)
 
     return (
-        <section className="pf-hero" id="hero" ref={container}>
-            <div className="pf-hero__bg">
-                <div className="pf-hero__glow pf-hero__parallax-layer pf-hero__parallax-layer--glow position-absolute top-50 start-50 translate-middle"></div>
-                <div className="pf-hero__circles pf-hero__parallax-layer pf-hero__parallax-layer--circles position-absolute w-100 h-100 d-flex align-items-center justify-content-center top-0 start-0">
-                    <div className="pf-hero__circle pf-hero__circle--1 rounded-circle d-flex align-items-center justify-content-center">
-                        <div className="pf-hero__circle pf-hero__circle--2 rounded-circle d-flex align-items-center justify-content-center">
-                            <div className="pf-hero__circle pf-hero__circle--3 rounded-circle"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="pf-hero__decoration pf-hero__parallax-layer pf-hero__parallax-layer--decoration position-absolute top-0 end-0 w-100 h-100 pe-none opacity-50">
-                <img className="w-100 h-100 object-fit-cover" 
-                     src="/images/portfolio/hero-bg.jpg" 
-                     alt="Decoration" />
-            </div>
-            
-            <div className="container pf-hero__container position-relative z-1 pt-5 pb-5 mt-5">
-                <div className="row align-items-center gy-5">
-                    <div className="col-lg-7 d-flex flex-column gap-4">
-                        <div className="pf-hero__availability d-inline-flex align-items-center gap-2 rounded-pill px-3 py-1">
-                            <span className="pf-hero__dot rounded-circle"></span>
-                            <span className="pf-hero__availability-text text-uppercase">Available for High-Impact Projects</span>
-                        </div>
-                        <h1 className="pf-hero__headline fw-bold">
-                            Senior Frontend Expert. <br/>
-                            <span className="pf-hero__highlight">5 Years of Crafting Impeccable User Interfaces.</span>
-                        </h1>
-                        <p className="pf-hero__lead">
-                            Specializing in sophisticated HTML/SCSS architectures, high-performance JavaScript, and modern Next.js applications. Precision engineered code for digital excellence.
+        <section className="hero-section" id="hero">
+            <video
+                ref={videoRef}
+                id="heroVideo"
+                className="hero-video"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+            />
+            <div className="hero-overlay" />
+            <div className="hero-bottom-fade" />
+            <div className="container hero-content d-flex flex-column justify-content-center">
+                <div className="row">
+                    <div className="col-12 col-lg-10 mx-auto text-center">
+                        <p className="hero-eyebrow blur-in text-uppercase mb-4">
+                            PORTFOLIO
                         </p>
-                        <div className="d-flex flex-wrap gap-3 mt-2">
-                            <button className="pf-btn pf-btn--primary d-flex align-items-center gap-2 px-4 py-3 rounded-3 text-uppercase fw-bold">
-                                Explore Projects
-                                <span className="material-symbols-outlined">arrow_forward</span>
-                            </button>
-                            <button className="pf-btn pf-btn--glass d-flex align-items-center gap-2 px-4 py-3 rounded-3 text-uppercase fw-bold">
-                                Download Resume
-                                <span className="material-symbols-outlined">download</span>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div className="col-lg-5">
-                        <div className="row g-3">
-                            <div className="col-6">
-                                <div className="pf-tech-card rounded-3 p-4">
-                                    <div className="pf-tech-card__icon text-primary mb-3">
-                                        <span className="material-symbols-outlined fs-2">html</span>
-                                    </div>
-                                    <h3 className="pf-tech-card__title fw-bold m-0 pb-1">HTML5</h3>
-                                    <p className="pf-tech-card__subtitle text-uppercase m-0">Semantic Architecture</p>
-                                </div>
-                            </div>
-                            <div className="col-6 mt-5">
-                                <div className="pf-tech-card rounded-3 p-4">
-                                    <div className="pf-tech-card__icon text-secondary mb-3">
-                                        <span className="material-symbols-outlined fs-2">grid_view</span>
-                                    </div>
-                                    <h3 className="pf-tech-card__title fw-bold m-0 pb-1">Next.js</h3>
-                                    <p className="pf-tech-card__subtitle text-uppercase m-0">SSR & Scalability</p>
-                                </div>
-                            </div>
-                            <div className="col-6">
-                                <div className="pf-tech-card rounded-3 p-4">
-                                    <div className="pf-tech-card__icon text-primary mb-3">
-                                        <span className="material-symbols-outlined fs-2">palette</span>
-                                    </div>
-                                    <h3 className="pf-tech-card__title fw-bold m-0 pb-1">SCSS</h3>
-                                    <p className="pf-tech-card__subtitle text-uppercase m-0">Design Systems</p>
-                                </div>
-                            </div>
-                            <div className="col-6 mt-5">
-                                <div className="pf-tech-card rounded-3 p-4">
-                                    <div className="pf-tech-card__icon text-info mb-3">
-                                        <span className="material-symbols-outlined fs-2">javascript</span>
-                                    </div>
-                                    <h3 className="pf-tech-card__title fw-bold m-0 pb-1">JavaScript</h3>
-                                    <p className="pf-tech-card__subtitle text-uppercase m-0">Logic & Performance</p>
-                                </div>
-                            </div>
-                            <div className="col-12 mt-4">
-                                <div className="pf-tech-card pf-tech-card--wide rounded-3 p-4 d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <h3 className="pf-tech-card__title fw-bold m-0 pb-1">Headless APIs</h3>
-                                        <p className="pf-tech-card__subtitle text-uppercase m-0">Data Orchestration</p>
-                                    </div>
-                                    <div className="d-flex pf-tech-card__avatars">
-                                        <div className="pf-tech-card__avatar d-flex align-items-center justify-content-center rounded-circle border border-2 border-dark">
-                                            <span className="material-symbols-outlined text-primary fs-6">api</span>
-                                        </div>
-                                        <div className="pf-tech-card__avatar d-flex align-items-center justify-content-center rounded-circle border border-2 border-dark ms-n2 position-relative">
-                                            <span className="material-symbols-outlined text-secondary fs-6">cloud</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <h1 className="hero-title name-reveal mb-3">
+                            Nguyen Thach Minh
+                        </h1>
+                        <p className="hero-role blur-in mb-3">
+                            A{" "}
+                            <span
+                                ref={roleRef}
+                                id="heroRole"
+                                className="hero-role__value"
+                            >
+                                Frontend Developer
+                            </span>{" "}
+                            based in Ho Chi Minh City.
+                        </p>
+                        <p className="hero-subtitle blur-in mb-5 mx-auto">
+                            Crafting responsive, performant web experiences with
+                            clean UI and modern tooling — from Bootstrap to
+                            React, powered by AI-driven workflows.
+                        </p>
+                        <div className="hero-actions blur-in d-inline-flex flex-wrap gap-3">
+                            <a
+                                className="hero-btn hero-btn--solid btn rounded-pill"
+                                href="#works"
+                            >
+                                See Works
+                            </a>
+                            <a
+                                className="hero-btn hero-btn--outline btn rounded-pill"
+                                href="#contact"
+                            >
+                                Reach out...
+                            </a>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className="scroll-indicator">
+                <p>SCROLL</p>
+                <span className="scroll-indicator__line">
+                    <span className="scroll-indicator__dot" />
+                </span>
             </div>
         </section>
-    );
+    )
 }

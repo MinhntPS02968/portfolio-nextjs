@@ -58,6 +58,10 @@ export default function RootLayout({
                 />
                 <link
                     rel="stylesheet"
+                    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap"
+                />
+                <link
+                    rel="stylesheet"
                     href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap"
                 />
                 {/* Stitch Fonts & Material Symbols */}
@@ -66,6 +70,7 @@ export default function RootLayout({
 
                 {/* Template CSS */}
                 <link rel="stylesheet" href="/client/css/bootstrap.min.css" />
+                <link rel="stylesheet" href="/client/css/all.min.css" />
                 <link rel="stylesheet" href="/client/css/flag-icons.min.css" />
 
 

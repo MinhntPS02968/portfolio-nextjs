@@ -1,138 +1,98 @@
-"use client";
+"use client"
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react"
 
-const menuItems = [
-  { href: "hero", text: "Home" },
-  { href: "skills", text: "Skills" },
-  { href: "projects", text: "Projects" },
-  { href: "contact", text: "Contact" },
-];
+const NAV_ITEMS = [
+    { href: "#hero", label: "Home" },
+    { href: "#works", label: "Work" },
+    { href: "#stats", label: "Resume" },
+]
 
 export default function Header() {
-  const [activeSection, setActiveSection] = useState("hero");
-  const offcanvasRef = useRef<HTMLDivElement>(null);
-  const bsOffcanvas = useRef<any>(null);
+    const [isScrolled, setIsScrolled] = useState(false)
+    const [activeHref, setActiveHref] = useState("#hero")
+    const navFrameRef = useRef<HTMLDivElement>(null)
 
-  // Keep a single close handler for both desktop and offcanvas actions.
-  const closeOffcanvas = () => {
-    if (bsOffcanvas.current) {
-        bsOffcanvas.current.hide();
-    }
-  };
+    useEffect(() => {
+        const navLinks = document.querySelectorAll(".nav-link-item")
+        const sections = Array.from(
+            document.querySelectorAll<HTMLElement>("section[id]"),
+        )
 
-  useEffect(() => {
-    // Track the currently visible section to keep navigation state in sync.
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
+        const onScroll = () => {
+            setIsScrolled(window.scrollY > 100)
+
+            let activeId = ""
+            sections.forEach((section) => {
+                const top = section.offsetTop - 140
+                if (window.scrollY >= top) {
+                    activeId = section.id
+                }
+            })
+
+            const nextHref = activeId ? `#${activeId}` : "#hero"
+            setActiveHref(nextHref)
+
+            navLinks.forEach((link) => {
+                const href = link.getAttribute("href")
+                link.classList.toggle("is-active", href === nextHref)
+            })
         }
-      });
-    }, {
-      root: null,
-      rootMargin: "-20% 0px -60% 0px",
-      threshold: 0
-    });
 
-    // Observe every section referenced by the menu map.
-    menuItems.forEach((item) => {
-      const section = document.getElementById(item.href);
-      if (section) observer.observe(section);
-    });
+        navLinks.forEach((link) => {
+            link.addEventListener("click", (event) => {
+                const targetId = link.getAttribute("href")
+                if (!targetId || !targetId.startsWith("#")) return
 
-    // Create one offcanvas instance and reuse it across interactions.
-    if (typeof window !== "undefined" && offcanvasRef.current) {
-      const bootstrap = (window as any).bootstrap;
-      if (bootstrap && bootstrap.Offcanvas) {
-          if (!bsOffcanvas.current) {
-              bsOffcanvas.current = new bootstrap.Offcanvas(offcanvasRef.current);
-          }
-      }
-    }
+                event.preventDefault()
+                const targetElement = document.querySelector(targetId)
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                    })
+                }
+            })
+        })
 
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
+        onScroll()
+        window.addEventListener("scroll", onScroll, { passive: true })
+        return () => window.removeEventListener("scroll", onScroll)
+    }, [])
 
-  return (
-    <header className="pf-header fixed-top pf-glass-blur">
-      <div className="container px-4 py-3 d-flex align-items-center justify-content-between">
-        {/* Logo */}
-        <a href="#hero" className="text-decoration-none">
-          <div className="pf-header__logo pf-neon-soft fs-4 fw-bold">The Digital Architect</div>
-        </a>
-
-        {/* Desktop Navigation */}
-        <nav className="pf-header__nav d-none d-md-flex align-items-center gap-4 text-uppercase fw-semibold tracking-tight nav">
-          {menuItems.map((item) => (
-            <a 
-              key={item.href} 
-              href={`#${item.href}`}
-              className={`nav-link pf-header__link pf-neon-soft ${activeSection === item.href ? 'active pf-neon-active' : ''}`}
+    return (
+        <nav className="portfolio-navbar navbar navbar-expand-lg justify-content-center">
+            <div
+                ref={navFrameRef}
+                className={`navbar-frame d-inline-flex align-items-center ${isScrolled ? "is-scrolled" : ""}`}
             >
-              {item.text}
-            </a>
-          ))}
-        </nav>
-
-        {/* Actions & Mobile Toggle */}
-        <div className="d-flex align-items-center gap-3">
-          <button className="pf-btn pf-btn--primary px-4 py-2 rounded-3 text-uppercase fw-bold text-dark border-0 fs-6 d-none d-sm-block">
-            Resume
-          </button>
-          
-          <button
-            className="btn btn-dark d-md-none border border-secondary border-opacity-25 rounded-3 d-flex align-items-center justify-content-center p-2"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#pfOffcanvas"
-            aria-controls="pfOffcanvas"
-          >
-            <span className="material-symbols-outlined text-white">menu</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Offcanvas */}
-      <div 
-        className="offcanvas offcanvas-end bg-dark border-start border-secondary border-opacity-25" 
-        tabIndex={-1} 
-        id="pfOffcanvas" 
-        aria-labelledby="pfOffcanvasLabel"
-        ref={offcanvasRef}
-      >
-        <div className="offcanvas-header border-bottom border-secondary border-opacity-25">
-          <h5 className="offcanvas-title pf-header__logo pf-neon-soft fs-5" id="pfOffcanvasLabel">The Digital Architect</h5>
-          <button 
-            type="button" 
-            className="btn-close btn-close-white" 
-            onClick={closeOffcanvas}
-            aria-label="Close"
-          ></button>
-        </div>
-        <div className="offcanvas-body">
-          <ul className="list-unstyled pf-header__nav text-uppercase d-flex flex-column gap-3 fs-5 mt-4 nav">
-            {menuItems.map((item) => (
-              <li key={item.href}>
-                <a 
-                  href={`#${item.href}`}
-                  className={`nav-link pf-header__link pf-neon-soft d-block w-100 py-2 border-bottom border-secondary border-opacity-10 ${activeSection === item.href ? 'active pf-neon-active' : ''}`}
-                  onClick={closeOffcanvas}
-                >
-                  {item.text}
+                <a className="logo-ring" href="#hero" aria-label="Go to hero">
+                    <span className="logo-inner">TM</span>
                 </a>
-              </li>
-            ))}
-            <li className="mt-4">
-                <button className="pf-btn pf-btn--primary px-4 py-3 rounded-3 text-uppercase fw-bold text-dark border-0 w-100 d-flex align-items-center justify-content-center gap-2">
-                    <span className="material-symbols-outlined">download</span> Resume
-                </button>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </header>
-  );
+                <span className="nav-divider d-none d-md-block" />
+                <div className="nav-links d-inline-flex align-items-center">
+                    {NAV_ITEMS.map((item) => (
+                        <a
+                            key={item.href}
+                            href={item.href}
+                            className={`nav-link-item ${activeHref === item.href ? "is-active" : ""}`}
+                        >
+                            {item.label}
+                        </a>
+                    ))}
+                </div>
+                <span className="nav-divider d-none d-md-block" />
+                <a
+                    className="say-hi-btn btn p-0 border-0 bg-transparent"
+                    href="#contact"
+                >
+                    <span className="say-hi-btn__ring" />
+                    <span className="say-hi-btn__inner">
+                        Say hi
+                        <span className="ms-1">↗</span>
+                    </span>
+                </a>
+            </div>
+        </nav>
+    )
 }
