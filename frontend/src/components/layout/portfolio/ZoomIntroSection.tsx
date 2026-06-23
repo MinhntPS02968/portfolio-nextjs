@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
+import { assetPath } from "@/utils/assetPath"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -315,7 +316,7 @@ export default function ZoomIntroSection({
                 <img
                     ref={mediaRef}
                     className="zoom-intro__media"
-                    src="/images/landing/bg-img.png"
+                    src={assetPath("/images/landing/bg-img.png")}
                     alt=""
                     decoding="async"
                     fetchPriority="high"

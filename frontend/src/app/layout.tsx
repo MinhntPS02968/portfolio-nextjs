@@ -4,28 +4,33 @@ import Script from 'next/script'
 import { ToastContainer } from 'react-toastify'
 
 import { I18nProvider } from '@/providers/I18nProvider'
+import { assetPath } from '@/utils/assetPath'
 
 import '../../style/scss/style.scss'
+
+const siteBasePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 export const metadata: Metadata = {
     title: process.env.NEXT_PUBLIC_SITE_TITLE || 'CorexCenter',
     description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION,
-    // Favicon từ public/images/favicon.png — Next tự inject <link rel="icon"> / apple-touch
+    metadataBase: new URL(
+        `https://minhntps02968.github.io${siteBasePath}`,
+    ),
     icons: {
-        icon: '/images/favicon.png',
-        shortcut: '/images/favicon.png',
-        apple: '/images/favicon.png',
+        icon: assetPath('/images/favicon.png'),
+        shortcut: assetPath('/images/favicon.png'),
+        apple: assetPath('/images/favicon.png'),
     },
     openGraph: {
         title: process.env.NEXT_PUBLIC_SITE_TITLE || 'CorexCenter',
         description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION,
-        images: ['/images/favicon.png'],
+        images: [assetPath('/images/favicon.png')],
     },
     twitter: {
         card: 'summary',
         title: process.env.NEXT_PUBLIC_SITE_TITLE || 'CorexCenter',
         description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION,
-        images: ['/images/favicon.png'],
+        images: [assetPath('/images/favicon.png')],
     },
 }
 
@@ -69,16 +74,16 @@ export default function RootLayout({
                 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
                 {/* Template CSS */}
-                <link rel="stylesheet" href="/client/css/bootstrap.min.css" />
-                <link rel="stylesheet" href="/client/css/all.min.css" />
-                <link rel="stylesheet" href="/client/css/flag-icons.min.css" />
+                <link rel="stylesheet" href={assetPath('/client/css/bootstrap.min.css')} />
+                <link rel="stylesheet" href={assetPath('/client/css/all.min.css')} />
+                <link rel="stylesheet" href={assetPath('/client/css/flag-icons.min.css')} />
 
 
 
                 {/* Open Graph cho Web3 wallets */}
                 <meta property="og:title" content={siteTitle} />
                 <meta property="og:description" content={siteDescription} />
-                <meta property="og:image" content="/images/favicon.png" />
+                <meta property="og:image" content={assetPath('/images/favicon.png')} />
                 <meta property="og:image:type" content="image/png" />
                 <meta property="og:image:width" content="512" />
                 <meta property="og:image:height" content="512" />
@@ -88,7 +93,7 @@ export default function RootLayout({
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:title" content={siteTitle} />
                 <meta name="twitter:description" content={siteDescription} />
-                <meta name="twitter:image" content="/images/favicon.png" />
+                <meta name="twitter:image" content={assetPath('/images/favicon.png')} />
 
                 {/* Additional meta for Web3 wallets */}
                 <meta name="application-name" content="Tradelis Exchange" />
@@ -115,11 +120,11 @@ export default function RootLayout({
                 </I18nProvider>
 
                 <Script
-                    src="/client/js/all.min.js"
+                    src={assetPath('/client/js/all.min.js')}
                     strategy="afterInteractive"
                 />
                 <Script
-                    src="/client/js/bootstrap.bundle.min.js"
+                    src={assetPath('/client/js/bootstrap.bundle.min.js')}
                     strategy="afterInteractive"
                 />
             </body>
