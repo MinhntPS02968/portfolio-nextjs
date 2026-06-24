@@ -17,9 +17,9 @@ export const metadata: Metadata = {
         `https://minhntps02968.github.io${siteBasePath}`,
     ),
     icons: {
-        icon: assetPath('/images/favicon1.png'),
-        shortcut: assetPath('/images/favicon1.png'),
-        apple: assetPath('/images/favicon1.png'),
+        icon: assetPath('/images/favicon.png'),
+        shortcut: assetPath('/images/favicon.png'),
+        apple: assetPath('/images/favicon.png'),
     },
     openGraph: {
         title: process.env.NEXT_PUBLIC_SITE_TITLE || 'Frontend Deverlop',
