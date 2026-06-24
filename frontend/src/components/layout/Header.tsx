@@ -82,10 +82,7 @@ export default function Header() {
                     ))}
                 </div>
                 <span className="nav-divider d-none d-md-block" />
-                <a
-                    className="say-hi-btn btn p-0 border-0 bg-transparent"
-                    href="#contact"
-                >
+                <a className="say-hi-btn" href="#contact">
                     <span className="say-hi-btn__ring" />
                     <span className="say-hi-btn__inner">
                         Say hi
