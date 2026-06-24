@@ -115,7 +115,7 @@
         "role": "Lập trình viên Frontend",
         "company": "G.I.C",
         "period": "02/2020 — Hiện tại",
-        "years": "2020—",
+        "years": "2020",
         "details": [
           "Xây dựng giao diện web tương tác với vanilla JS, Bootstrap và Tailwind CSS",
           "Tận dụng AI để debug và sinh boilerplate, giảm ~20% thời gian phát triển",

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import Script from 'next/script'
-import { ToastContainer } from 'react-toastify'
 
 import { I18nProvider } from '@/providers/I18nProvider'
 import { assetPath } from '@/utils/assetPath'
@@ -65,13 +64,6 @@ export default function RootLayout({
                     rel="stylesheet"
                     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap"
                 />
-                <link
-                    rel="stylesheet"
-                    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap"
-                />
-                {/* Stitch Fonts & Material Symbols */}
-                <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
-                <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
                 {/* Template CSS */}
                 <link rel="stylesheet" href={assetPath('/client/css/bootstrap.min.css')} />
@@ -80,7 +72,7 @@ export default function RootLayout({
 
 
 
-                {/* Open Graph cho Web3 wallets */}
+                {/* Open Graph */}
                 <meta property="og:title" content={siteTitle} />
                 <meta property="og:description" content={siteDescription} />
                 <meta property="og:image" content={assetPath('/images/favicon.png')} />
@@ -95,28 +87,18 @@ export default function RootLayout({
                 <meta name="twitter:description" content={siteDescription} />
                 <meta name="twitter:image" content={assetPath('/images/favicon.png')} />
 
-                {/* Additional meta for Web3 wallets */}
-                <meta name="application-name" content="Tradelis Exchange" />
-                <meta name="apple-mobile-web-app-title" content="Tradelis" />
+                {/* PWA meta */}
+                <meta name="application-name" content={siteTitle} />
+                <meta name="apple-mobile-web-app-title" content={siteTitle} />
                 <meta name="apple-mobile-web-app-capable" content="yes" />
                 <meta
                     name="apple-mobile-web-app-status-bar-style"
                     content="default"
                 />
             </head>
-            <body
-                data-bs-spy="scroll"
-                data-bs-target="#corexScrollNav"
-                data-bs-offset="90"
-                data-bs-smooth-scroll="true"
-                tabIndex={0}
-            >
-                {/* Global Providers - Wrap toàn bộ ứng dụng */}
+            <body tabIndex={0}>
                 <I18nProvider>
-                    <Suspense>
-                        {children}
-                        <ToastContainer />
-                    </Suspense>
+                    <Suspense>{children}</Suspense>
                 </I18nProvider>
 
                 <Script

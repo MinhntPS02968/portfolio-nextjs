@@ -132,7 +132,7 @@ export default function ExplorationsSection({ ready }: ExplorationsSectionProps)
                     return (
                         <article
                             key={item.id}
-                            className={`explore-card js-explore-card explore-card--${item.accent} explore-card--pos-${position}${"isCurrent" in item && item.isCurrent ? " explore-card--featured" : ""}`}
+                            className={`explore-card js-explore-card explore-card--${item.accent} explore-card--pos-${position}${'isCurrent' in item && item.isCurrent ? ' explore-card--featured' : ''}`}
                         >
                             <div
                                 className="explore-card__glow"
@@ -147,28 +147,35 @@ export default function ExplorationsSection({ ready }: ExplorationsSectionProps)
                                     <span className="explore-card__index">
                                         {item.index}
                                     </span>
-                                    <p className="explore-card__years font-display fst-italic">
-                                        {t(`explorations.items.${item.id}.years`)}
+                                    <p className="explore-card__years font-display fst-italic text-nowrap">
+                                        {t(
+                                            `explorations.items.${item.id}.years`
+                                        )}
                                     </p>
-                                    <p className="explore-card__period">
-                                        {t(`explorations.items.${item.id}.period`)}
+                                    <p className="explore-card__period text-nowrap">
+                                        {t(
+                                            `explorations.items.${item.id}.period`
+                                        )}
                                     </p>
                                 </div>
                                 <div className="explore-card__body">
                                     <div className="explore-card__meta">
                                         <p className="explore-card__company">
                                             {t(
-                                                `explorations.items.${item.id}.company`,
+                                                `explorations.items.${item.id}.company`
                                             )}
                                         </p>
-                                        {"isCurrent" in item && item.isCurrent ? (
+                                        {'isCurrent' in item &&
+                                        item.isCurrent ? (
                                             <span className="explore-card__badge">
-                                                {t("explorations.badgeNow")}
+                                                {t('explorations.badgeNow')}
                                             </span>
                                         ) : null}
                                     </div>
                                     <h3 className="explore-card__role">
-                                        {t(`explorations.items.${item.id}.role`)}
+                                        {t(
+                                            `explorations.items.${item.id}.role`
+                                        )}
                                     </h3>
                                     <ul className="explore-card__details">
                                         {details.map((detail) => (
