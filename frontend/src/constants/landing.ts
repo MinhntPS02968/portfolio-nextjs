@@ -6,3 +6,5 @@ export const LOADING_WORDS = ["Create", "Developer", "Inspire"]
 export const HERO_ROLES = ["Frontend", "Animation", "AI-Native", "Developer"]
 
 export const LOADER_DURATION_MS = 2700
+
+export const ZOOM_INTRO_BG_IMAGE = "/images/landing/bg-img.webp"

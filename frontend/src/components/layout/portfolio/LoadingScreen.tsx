@@ -4,7 +4,10 @@ import { useEffect, useRef, useState } from "react"
 import {
     LOADER_DURATION_MS,
     LOADING_WORDS,
+    ZOOM_INTRO_BG_IMAGE,
 } from "@/constants/landing"
+import { usePreloadImage } from "@/hooks/landing/usePreloadImage"
+import { assetPath } from "@/utils/assetPath"
 
 type LoadingScreenProps = {
     onComplete: () => void
@@ -14,9 +17,16 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
     const [visible, setVisible] = useState(true)
     const [count, setCount] = useState("000")
     const [word, setWord] = useState("Frontend")
+    const [timerDone, setTimerDone] = useState(false)
     const barRef = useRef<HTMLSpanElement>(null)
     const wordRef = useRef<HTMLParagraphElement>(null)
     const completedRef = useRef(false)
+    const zoomBgReadyRef = useRef(false)
+    const zoomBgReady = usePreloadImage(assetPath(ZOOM_INTRO_BG_IMAGE))
+
+    useEffect(() => {
+        zoomBgReadyRef.current = zoomBgReady
+    }, [zoomBgReady])
 
     useEffect(() => {
         const start = performance.now()
@@ -25,8 +35,11 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
         let frameId = 0
 
         const update = (time: number) => {
-            const progress = Math.min((time - start) / LOADER_DURATION_MS, 1)
-            const current = Math.round(progress * 100)
+            const timerProgress = Math.min((time - start) / LOADER_DURATION_MS, 1)
+            const rawPercent = Math.round(timerProgress * 100)
+            const current = zoomBgReadyRef.current
+                ? rawPercent
+                : Math.min(rawPercent, 99)
 
             setCount(String(current).padStart(3, "0"))
 
@@ -45,23 +58,38 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
                 lastWordTick = time
             }
 
-            if (progress < 1) {
+            if (timerProgress < 1) {
                 frameId = requestAnimationFrame(update)
                 return
             }
 
-            if (!completedRef.current) {
-                completedRef.current = true
-                setVisible(false)
-                window.setTimeout(() => {
-                    onComplete()
-                }, 400)
-            }
+            setTimerDone(true)
         }
 
         frameId = requestAnimationFrame(update)
         return () => cancelAnimationFrame(frameId)
-    }, [onComplete])
+    }, [])
+
+    useEffect(() => {
+        if (!zoomBgReady || !timerDone) return
+
+        setCount("100")
+        if (barRef.current) {
+            barRef.current.style.transform = "scaleX(1)"
+        }
+    }, [zoomBgReady, timerDone])
+
+    useEffect(() => {
+        if (!timerDone || !zoomBgReady || completedRef.current) return
+
+        completedRef.current = true
+        setVisible(false)
+        const timeoutId = window.setTimeout(() => {
+            onComplete()
+        }, 400)
+
+        return () => window.clearTimeout(timeoutId)
+    }, [timerDone, zoomBgReady, onComplete])
 
     if (!visible) {
         return null
