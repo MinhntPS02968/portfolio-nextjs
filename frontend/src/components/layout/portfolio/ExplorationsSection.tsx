@@ -1,70 +1,38 @@
 "use client"
 
 import { useRef } from "react"
+import { useTranslation } from "react-i18next"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
 
 gsap.registerPlugin(ScrollTrigger)
 
-type Experience = {
-    role: string
-    company: string
-    period: string
-    years: string
-    index: string
-    accent: string
-    isCurrent?: boolean
-    details: string[]
-}
-
-const EXPERIENCES: Experience[] = [
+const EXPERIENCE_ITEMS = [
     {
-        role: "Inter PHP & Front-end",
-        company: "BE Solution",
-        period: "02/2017 — 09/2018",
-        years: "2017–18",
+        id: "beSolution",
         index: "01",
         accent: "one",
-        details: [
-            "Design website interface using PHP, Yii Framework and Laravel",
-            "Maintain and update websites periodically",
-            "Survey, setup and standardize databases per client requirements",
-        ],
     },
     {
-        role: "Fresher Front-end",
-        company: "Freelancer",
-        period: "12/2018 — 07/2019",
-        years: "2018–19",
+        id: "freelancer",
         index: "02",
         accent: "two",
-        details: [
-            "Design website interfaces based on client requirements",
-            "Develop and maintain responsive web apps with HTML, CSS, JavaScript",
-        ],
     },
     {
-        role: "Frontend Developer",
-        company: "G.I.C",
-        period: "02/2020 — Present",
-        years: "2020—",
+        id: "gic",
         index: "03",
         accent: "three",
         isCurrent: true,
-        details: [
-            "Build interactive web interfaces with vanilla JS, Bootstrap and Tailwind CSS",
-            "Leverage AI tools to debug and generate boilerplate, cutting dev time by 20%",
-            "Collaborate with Product Owner and UI/UX Designer for intuitive user experience",
-        ],
     },
-]
+] as const
 
 type ExplorationsSectionProps = {
     ready: boolean
 }
 
 export default function ExplorationsSection({ ready }: ExplorationsSectionProps) {
+    const { t } = useTranslation()
     const sectionRef = useRef<HTMLElement>(null)
 
     useGSAP(
@@ -140,67 +108,78 @@ export default function ExplorationsSection({ ready }: ExplorationsSectionProps)
         >
             <div className="explorations-header">
                 <div className="container explorations-header__inner text-center">
-                    <p className="section-meta">Experience</p>
+                    <p className="section-meta">{t("explorations.meta")}</p>
                     <h2 className="section-title" id="explorations-title">
-                        Career
+                        {t("explorations.title")}
                         <span className="font-display fst-italic">
                             {" "}
-                            journey
+                            {t("explorations.titleAccent")}
                         </span>
                     </h2>
                     <p className="section-subtext explorations-header__subtext mx-auto">
-                        Where I&apos;ve been and what I&apos;ve built along the
-                        way.
+                        {t("explorations.subtext")}
                     </p>
                 </div>
             </div>
 
             <div className="container explorations-stack">
-                {EXPERIENCES.map((item, position) => (
-                    <article
-                        key={item.company}
-                        className={`explore-card js-explore-card explore-card--${item.accent} explore-card--pos-${position}${item.isCurrent ? " explore-card--featured" : ""}`}
-                    >
-                        <div className="explore-card__glow" aria-hidden="true" />
-                        <div className="explore-card__surface">
-                            <div className="explore-card__visual">
-                                <div
-                                    className="explore-card__noise"
-                                    aria-hidden="true"
-                                />
-                                <span className="explore-card__index">
-                                    {item.index}
-                                </span>
-                                <p className="explore-card__years font-display fst-italic">
-                                    {item.years}
-                                </p>
-                                <p className="explore-card__period">
-                                    {item.period}
-                                </p>
-                            </div>
-                            <div className="explore-card__body">
-                                <div className="explore-card__meta">
-                                    <p className="explore-card__company">
-                                        {item.company}
+                {EXPERIENCE_ITEMS.map((item, position) => {
+                    const details = t(
+                        `explorations.items.${item.id}.details`,
+                        { returnObjects: true },
+                    ) as string[]
+
+                    return (
+                        <article
+                            key={item.id}
+                            className={`explore-card js-explore-card explore-card--${item.accent} explore-card--pos-${position}${"isCurrent" in item && item.isCurrent ? " explore-card--featured" : ""}`}
+                        >
+                            <div
+                                className="explore-card__glow"
+                                aria-hidden="true"
+                            />
+                            <div className="explore-card__surface">
+                                <div className="explore-card__visual">
+                                    <div
+                                        className="explore-card__noise"
+                                        aria-hidden="true"
+                                    />
+                                    <span className="explore-card__index">
+                                        {item.index}
+                                    </span>
+                                    <p className="explore-card__years font-display fst-italic">
+                                        {t(`explorations.items.${item.id}.years`)}
                                     </p>
-                                    {item.isCurrent ? (
-                                        <span className="explore-card__badge">
-                                            Now
-                                        </span>
-                                    ) : null}
+                                    <p className="explore-card__period">
+                                        {t(`explorations.items.${item.id}.period`)}
+                                    </p>
                                 </div>
-                                <h3 className="explore-card__role">
-                                    {item.role}
-                                </h3>
-                                <ul className="explore-card__details">
-                                    {item.details.map((detail) => (
-                                        <li key={detail}>{detail}</li>
-                                    ))}
-                                </ul>
+                                <div className="explore-card__body">
+                                    <div className="explore-card__meta">
+                                        <p className="explore-card__company">
+                                            {t(
+                                                `explorations.items.${item.id}.company`,
+                                            )}
+                                        </p>
+                                        {"isCurrent" in item && item.isCurrent ? (
+                                            <span className="explore-card__badge">
+                                                {t("explorations.badgeNow")}
+                                            </span>
+                                        ) : null}
+                                    </div>
+                                    <h3 className="explore-card__role">
+                                        {t(`explorations.items.${item.id}.role`)}
+                                    </h3>
+                                    <ul className="explore-card__details">
+                                        {details.map((detail) => (
+                                            <li key={detail}>{detail}</li>
+                                        ))}
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                    </article>
-                ))}
+                        </article>
+                    )
+                })}
             </div>
         </section>
     )

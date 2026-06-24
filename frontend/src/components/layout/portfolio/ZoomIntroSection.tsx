@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { useTranslation } from "react-i18next"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
@@ -18,6 +19,7 @@ export default function ZoomIntroSection({
     ready,
     onZoomActiveChange,
 }: ZoomIntroSectionProps) {
+    const { t } = useTranslation()
     const sectionRef = useRef<HTMLElement>(null)
     const mediaRef = useRef<HTMLImageElement>(null)
 
@@ -325,18 +327,18 @@ export default function ZoomIntroSection({
                 <div className="zoom-intro__glow" aria-hidden="true" />
                 <div className="zoom-intro__shade" aria-hidden="true" />
                 <header className="zoom-intro__welcome">
-                    <p className="zoom-intro__eyebrow">Portfolio</p>
+                    <p className="zoom-intro__eyebrow">{t("zoomIntro.eyebrow")}</p>
                     <h1 className="zoom-intro__title">
                         <span className="zoom-intro__title-main">
-                            Welcome to{" "}
+                            {t("zoomIntro.titleMain")}{" "}
                         </span>
                         <span className="zoom-intro__title-accent">
-                            my portfolio
+                            {t("zoomIntro.titleAccent")}
                         </span>
                     </h1>
                 </header>
                 <div className="zoom-intro__hint">
-                    <p className="zoom-intro__hint-label">SCROLL</p>
+                    <p className="zoom-intro__hint-label">{t("zoomIntro.scroll")}</p>
                     <span className="zoom-intro__hint-track">
                         <span className="zoom-intro__hint-dot" />
                     </span>

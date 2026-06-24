@@ -1,9 +1,9 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
 import {
     LOADER_DURATION_MS,
-    LOADING_WORDS,
     ZOOM_INTRO_BG_IMAGE,
 } from "@/constants/landing"
 import { usePreloadImage } from "@/hooks/landing/usePreloadImage"
@@ -14,9 +14,12 @@ type LoadingScreenProps = {
 }
 
 export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
+    const { t } = useTranslation()
+    const loadingWords = t("loading.words", { returnObjects: true }) as string[]
+    const loadingWordsRef = useRef(loadingWords)
     const [visible, setVisible] = useState(true)
     const [count, setCount] = useState("000")
-    const [word, setWord] = useState("Frontend")
+    const [word, setWord] = useState(loadingWords[0] ?? "")
     const [timerDone, setTimerDone] = useState(false)
     const barRef = useRef<HTMLSpanElement>(null)
     const wordRef = useRef<HTMLParagraphElement>(null)
@@ -27,6 +30,11 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
     useEffect(() => {
         zoomBgReadyRef.current = zoomBgReady
     }, [zoomBgReady])
+
+    useEffect(() => {
+        loadingWordsRef.current = loadingWords
+        setWord(loadingWords[0] ?? "")
+    }, [loadingWords])
 
     useEffect(() => {
         const start = performance.now()
@@ -48,8 +56,11 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
             }
 
             if (time - lastWordTick > 900) {
-                wordIndex = (wordIndex + 1) % LOADING_WORDS.length
-                setWord(LOADING_WORDS[wordIndex])
+                const words = loadingWordsRef.current
+                if (words.length > 0) {
+                    wordIndex = (wordIndex + 1) % words.length
+                    setWord(words[wordIndex])
+                }
                 if (wordRef.current) {
                     wordRef.current.style.animation = "none"
                     wordRef.current.offsetHeight
@@ -105,7 +116,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
                 transition: "opacity 0.4s ease",
             }}
         >
-            <p className="loading-screen__label">Thach Minh</p>
+            <p className="loading-screen__label">{t("loading.name")}</p>
             <div className="loading-screen__word-wrap">
                 <p
                     className="loading-screen__word"
