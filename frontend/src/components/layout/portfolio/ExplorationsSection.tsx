@@ -84,9 +84,12 @@ export default function ExplorationsSection({ ready }: ExplorationsSectionProps)
                 section.querySelectorAll(".js-explore-card"),
             )
 
+            const isMobile = window.matchMedia("(max-width: 767.98px)").matches
+
             cards.forEach((card, index) => {
                 const featured = card.classList.contains("explore-card--featured")
-                const tilt = featured ? 0 : index % 2 === 0 ? -2.5 : 2.5
+                const tilt =
+                    isMobile || featured ? 0 : index % 2 === 0 ? -2.5 : 2.5
 
                 gsap.set(card, {
                     rotation: tilt,
@@ -95,10 +98,10 @@ export default function ExplorationsSection({ ready }: ExplorationsSectionProps)
 
                 gsap.from(card, {
                     opacity: 0,
-                    y: 72,
-                    scale: 0.94,
-                    rotation: featured ? 0 : tilt * 2,
-                    duration: 1,
+                    y: isMobile ? 40 : 72,
+                    scale: isMobile ? 1 : 0.94,
+                    rotation: featured || isMobile ? 0 : tilt * 2,
+                    duration: isMobile ? 0.75 : 1,
                     delay: index * 0.08,
                     ease: "power3.out",
                     scrollTrigger: {
@@ -108,17 +111,19 @@ export default function ExplorationsSection({ ready }: ExplorationsSectionProps)
                     },
                 })
 
-                gsap.to(card, {
-                    y: featured ? -18 : -12,
-                    rotation: tilt,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: card,
-                        scrub: 0.6,
-                        start: "top bottom",
-                        end: "bottom top",
-                    },
-                })
+                if (!isMobile) {
+                    gsap.to(card, {
+                        y: featured ? -18 : -12,
+                        rotation: tilt,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: card,
+                            scrub: 0.6,
+                            start: "top bottom",
+                            end: "bottom top",
+                        },
+                    })
+                }
             })
 
             ScrollTrigger.refresh()
