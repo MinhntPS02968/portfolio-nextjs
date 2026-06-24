@@ -741,6 +741,15 @@ body {
   transition: transform 0.35s ease;
 }
 
+.work-card__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
 .work-card:hover .work-card__media {
   transform: scale(1.05);
 }
@@ -748,6 +757,7 @@ body {
 .work-card__half-tone {
   position: absolute;
   inset: 0;
+  z-index: 2;
   background-image: radial-gradient(circle, #000 1px, transparent 1px);
   background-size: 4px 4px;
   opacity: 0.2;
@@ -789,18 +799,58 @@ body {
 
 .work-card__media--one {
   background: linear-gradient(120deg, #223a57, #4e85bf);
+
+  &::after {
+    background: linear-gradient(
+      120deg,
+      rgb(34 58 87 / 0.35),
+      rgb(78 133 191 / 0.15)
+    );
+  }
 }
 
 .work-card__media--two {
   background: linear-gradient(120deg, #2b2b2b, #6c88a5);
+
+  &::after {
+    background: linear-gradient(
+      120deg,
+      rgb(43 43 43 / 0.45),
+      rgb(108 136 165 / 0.2)
+    );
+  }
 }
 
 .work-card__media--three {
   background: linear-gradient(120deg, #384b5d, #2b3345);
+
+  &::after {
+    background: linear-gradient(
+      120deg,
+      rgb(56 75 93 / 0.4),
+      rgb(43 51 69 / 0.25)
+    );
+  }
 }
 
 .work-card__media--four {
   background: linear-gradient(120deg, #33566f, #637b9d);
+
+  &::after {
+    background: linear-gradient(
+      120deg,
+      rgb(51 86 111 / 0.35),
+      rgb(99 123 157 / 0.15)
+    );
+  }
+}
+
+.work-card__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .journal-list {
@@ -1234,6 +1284,9 @@ body {
 .footer-links a {
   color: hsl(var(--muted));
   text-decoration: none;
+  &:hover {
+    color: hsl(var(--text));
+  }
 }
 
 .footer-status {

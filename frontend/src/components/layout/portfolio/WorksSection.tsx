@@ -1,23 +1,37 @@
+import { assetPath } from "@/utils/assetPath"
+
 const WORKS = [
     {
-        title: "Automotive Motion",
-        mediaClass: "work-card__media--one",
-        colClass: "col-12 col-md-7",
+        title: 'E-commerce Engine',
+        image: '/images/works/ecommerce-engine.jpg',
+        imageAlt: 'Thanh toán trực tuyến và giao dịch thương mại điện tử',
+        mediaClass: 'work-card__media--one',
+        colClass: 'col-12 col-md-7',
+        link: 'https://anninhtanthoidai.com/',
     },
     {
-        title: "Urban Architecture",
-        mediaClass: "work-card__media--two",
-        colClass: "col-12 col-md-5",
+        title: 'NFT Game',
+        image: '/images/works/nft-game.jpg',
+        imageAlt: 'Game NFT với nhân vật 3D và token số hóa',
+        mediaClass: 'work-card__media--two',
+        colClass: 'col-12 col-md-5',
+        link: 'https://pokepop.biz/',
     },
     {
-        title: "Human Perspective",
-        mediaClass: "work-card__media--three",
-        colClass: "col-12 col-md-5",
+        title: 'Crypto currency exchange',
+        image: '/images/works/crypto-exchange.jpg',
+        imageAlt: 'Biểu đồ giá và giao dịch tiền mã hóa',
+        mediaClass: 'work-card__media--three',
+        colClass: 'col-12 col-md-5',
+        link: 'https://crxex.com',
     },
     {
-        title: "Brand Identity",
-        mediaClass: "work-card__media--four",
-        colClass: "col-12 col-md-7",
+        title: 'Defi platform',
+        image: '/images/works/defi-platform.svg',
+        imageAlt: 'Giao diện DeFi: swap (Uniswap), yield (Aave), lending (Compound)',
+        mediaClass: 'work-card__media--four',
+        colClass: 'col-12 col-md-7',
+        link: 'https://corex.is',
     },
 ]
 
@@ -34,7 +48,6 @@ export default function WorksSection() {
                         <h2 className="section-title">
                             Featured
                             <span className="font-display fst-italic">
-                                {" "}
                                 projects
                             </span>
                         </h2>
@@ -43,13 +56,13 @@ export default function WorksSection() {
                             concept to launch.
                         </p>
                     </div>
-                    <a
+                    {/* <a
                         className="section-btn btn rounded-pill d-none d-md-inline-flex align-items-center"
                         href="#"
                     >
                         View all work
                         <span className="ms-1">↗</span>
-                    </a>
+                    </a> */}
                 </div>
                 <div className="row g-4">
                     {WORKS.map((work) => (
@@ -58,10 +71,17 @@ export default function WorksSection() {
                                 <div
                                     className={`work-card__media ${work.mediaClass}`}
                                 >
+                                    <img
+                                        className="work-card__image"
+                                        src={assetPath(work.image)}
+                                        alt={work.imageAlt}
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
                                     <div className="work-card__half-tone" />
                                 </div>
                                 <div className="work-card__hover">
-                                    <a className="work-card__pill" href="#">
+                                    <a className="work-card__pill" target="_blank" href={work.link as string}>
                                         View — <em>{work.title}</em>
                                     </a>
                                 </div>

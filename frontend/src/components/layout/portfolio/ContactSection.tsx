@@ -47,8 +47,14 @@ export default function ContactSection() {
                 </a>
                 <div className="footer-bar d-flex flex-wrap justify-content-between align-items-center gap-3">
                     <div className="footer-links d-inline-flex flex-wrap gap-3">
-                        <a href="#">LinkedIn</a>
-                        <a href="#">GitHub</a>
+                        {/* <a href="#">LinkedIn</a> */}
+                        <a
+                            href="https://github.com/minhntps02968"
+                            target="_blank"
+                        >
+                            <i className="fa-brands fa-github" />
+                            <span className="ms-2">GitHub</span>
+                        </a>
                     </div>
                     <div className="footer-status d-inline-flex align-items-center">
                         <span className="footer-status__dot" />
