@@ -7,38 +7,56 @@ import { useGSAP } from "@gsap/react"
 
 gsap.registerPlugin(ScrollTrigger)
 
-const EXPERIENCES = [
+type Experience = {
+    role: string
+    company: string
+    period: string
+    years: string
+    index: string
+    accent: string
+    isCurrent?: boolean
+    details: string[]
+}
+
+const EXPERIENCES: Experience[] = [
     {
         role: "Inter PHP & Front-end",
         company: "BE Solution",
         period: "02/2017 — 09/2018",
+        years: "2017–18",
+        index: "01",
+        accent: "one",
         details: [
             "Design website interface using PHP, Yii Framework and Laravel",
             "Maintain and update websites periodically",
             "Survey, setup and standardize databases per client requirements",
         ],
-        parallaxSpeed: 12,
     },
     {
         role: "Fresher Front-end",
         company: "Freelancer",
         period: "12/2018 — 07/2019",
+        years: "2018–19",
+        index: "02",
+        accent: "two",
         details: [
             "Design website interfaces based on client requirements",
             "Develop and maintain responsive web apps with HTML, CSS, JavaScript",
         ],
-        parallaxSpeed: 16,
     },
     {
         role: "Frontend Developer",
         company: "G.I.C",
         period: "02/2020 — Present",
+        years: "2020—",
+        index: "03",
+        accent: "three",
+        isCurrent: true,
         details: [
             "Build interactive web interfaces with vanilla JS, Bootstrap and Tailwind CSS",
             "Leverage AI tools to debug and generate boilerplate, cutting dev time by 20%",
             "Collaborate with Product Owner and UI/UX Designer for intuitive user experience",
         ],
-        parallaxSpeed: 18,
     },
 ]
 
@@ -48,15 +66,13 @@ type ExplorationsSectionProps = {
 
 export default function ExplorationsSection({ ready }: ExplorationsSectionProps) {
     const sectionRef = useRef<HTMLElement>(null)
-    const pinRef = useRef<HTMLDivElement>(null)
 
     useGSAP(
         () => {
             if (!ready) return
 
             const section = sectionRef.current
-            const pinTarget = pinRef.current
-            if (!section || !pinTarget) return
+            if (!section) return
 
             const reducedMotion = window.matchMedia(
                 "(prefers-reduced-motion: reduce)",
@@ -64,44 +80,43 @@ export default function ExplorationsSection({ ready }: ExplorationsSectionProps)
 
             if (reducedMotion) return
 
-            ScrollTrigger.create({
-                trigger: section,
-                start: "top top",
-                end: "bottom bottom",
-                pin: pinTarget,
-                pinSpacing: false,
-                invalidateOnRefresh: true,
-                onEnter: () => {
-                    gsap.set(pinTarget, { zIndex: 10 })
-                },
-                onEnterBack: () => {
-                    gsap.set(pinTarget, { zIndex: 10 })
-                },
-                onRefresh: () => {
-                    gsap.set(pinTarget, { zIndex: 10 })
-                },
-            })
-
             const cards = gsap.utils.toArray<HTMLElement>(
-                section.querySelectorAll(".js-parallax-card"),
+                section.querySelectorAll(".js-explore-card"),
             )
 
             cards.forEach((card, index) => {
-                const speed = Number(card.dataset.parallaxSpeed || 14)
-                const rotation = index % 2 === 0 ? -2 : 2
+                const featured = card.classList.contains("explore-card--featured")
+                const tilt = featured ? 0 : index % 2 === 0 ? -2.5 : 2.5
 
-                gsap.set(card, { rotation, force3D: true })
+                gsap.set(card, {
+                    rotation: tilt,
+                    transformOrigin: "center center",
+                })
+
+                gsap.from(card, {
+                    opacity: 0,
+                    y: 72,
+                    scale: 0.94,
+                    rotation: featured ? 0 : tilt * 2,
+                    duration: 1,
+                    delay: index * 0.08,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 90%",
+                        once: true,
+                    },
+                })
 
                 gsap.to(card, {
-                    yPercent: -speed,
-                    rotation,
+                    y: featured ? -18 : -12,
+                    rotation: tilt,
                     ease: "none",
                     scrollTrigger: {
                         trigger: card,
-                        scrub: true,
+                        scrub: 0.6,
                         start: "top bottom",
                         end: "bottom top",
-                        invalidateOnRefresh: true,
                     },
                 })
             })
@@ -116,52 +131,71 @@ export default function ExplorationsSection({ ready }: ExplorationsSectionProps)
             className="explorations-section"
             id="explorations"
             ref={sectionRef}
+            aria-labelledby="explorations-title"
         >
-            <div className="explorations-pin" id="explorationsPin" ref={pinRef}>
-                <div className="container text-center">
+            <div className="explorations-header">
+                <div className="container explorations-header__inner text-center">
                     <p className="section-meta">Experience</p>
-                    <h2 className="section-title">
+                    <h2 className="section-title" id="explorations-title">
                         Career
                         <span className="font-display fst-italic">
                             {" "}
                             journey
                         </span>
                     </h2>
-                    <p className="section-subtext text-center mx-auto">
+                    <p className="section-subtext explorations-header__subtext mx-auto">
                         Where I&apos;ve been and what I&apos;ve built along the
                         way.
                     </p>
                 </div>
             </div>
-            <div className="explorations-layer">
-                <div className="container">
-                    <div className="explore-stack">
-                        {EXPERIENCES.map((item) => (
-                            <article
-                                key={item.company}
-                                className="explore-card js-parallax-card"
-                                data-parallax-speed={item.parallaxSpeed}
-                            >
-                                <div className="explore-card__content">
-                                    <h4 className="explore-card__role">
-                                        {item.role}
-                                    </h4>
+
+            <div className="container explorations-stack">
+                {EXPERIENCES.map((item, position) => (
+                    <article
+                        key={item.company}
+                        className={`explore-card js-explore-card explore-card--${item.accent} explore-card--pos-${position}${item.isCurrent ? " explore-card--featured" : ""}`}
+                    >
+                        <div className="explore-card__glow" aria-hidden="true" />
+                        <div className="explore-card__surface">
+                            <div className="explore-card__visual">
+                                <div
+                                    className="explore-card__noise"
+                                    aria-hidden="true"
+                                />
+                                <span className="explore-card__index">
+                                    {item.index}
+                                </span>
+                                <p className="explore-card__years font-display fst-italic">
+                                    {item.years}
+                                </p>
+                                <p className="explore-card__period">
+                                    {item.period}
+                                </p>
+                            </div>
+                            <div className="explore-card__body">
+                                <div className="explore-card__meta">
                                     <p className="explore-card__company">
                                         {item.company}
                                     </p>
-                                    <p className="explore-card__period">
-                                        {item.period}
-                                    </p>
-                                    <ul className="explore-card__details">
-                                        {item.details.map((detail) => (
-                                            <li key={detail}>{detail}</li>
-                                        ))}
-                                    </ul>
+                                    {item.isCurrent ? (
+                                        <span className="explore-card__badge">
+                                            Now
+                                        </span>
+                                    ) : null}
                                 </div>
-                            </article>
-                        ))}
-                    </div>
-                </div>
+                                <h3 className="explore-card__role">
+                                    {item.role}
+                                </h3>
+                                <ul className="explore-card__details">
+                                    {item.details.map((detail) => (
+                                        <li key={detail}>{detail}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                ))}
             </div>
         </section>
     )
