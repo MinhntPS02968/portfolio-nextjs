@@ -142,15 +142,18 @@ export default function Header() {
                         aria-expanded={langOpen}
                         onClick={() => setLangOpen((open) => !open)}
                     >
-                        <span
-                            className={`fi fi-${currentLangOption.code} nav-lang-flag`}
-                            aria-hidden="true"
-                        />
-                        <span className="nav-lang-label">
-                            {currentLangOption.short}
-                        </span>
-                        <span className="nav-lang-chevron" aria-hidden="true">
-                            ▾
+                        <span className="say-hi-btn__ring" aria-hidden="true" />
+                        <span className="say-hi-btn__inner">
+                            <span
+                                className={`fi fi-${currentLangOption.code} nav-lang-flag`}
+                                aria-hidden="true"
+                            />
+                            <span className="nav-lang-label">
+                                {currentLangOption.short}
+                            </span>
+                            <span className="nav-lang-chevron" aria-hidden="true">
+                                ▾
+                            </span>
                         </span>
                     </button>
                     <ul
@@ -176,14 +179,6 @@ export default function Header() {
                         ))}
                     </ul>
                 </div>
-                <span className="nav-divider d-none d-md-block" />
-                <a className="say-hi-btn" href="#contact">
-                    <span className="say-hi-btn__ring" />
-                    <span className="say-hi-btn__inner">
-                        {t("header.sayHi")}
-                        <span className="ms-1">↗</span>
-                    </span>
-                </a>
             </div>
         </nav>
     )
