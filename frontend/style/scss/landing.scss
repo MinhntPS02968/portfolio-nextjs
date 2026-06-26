@@ -1334,51 +1334,204 @@ body {
 .contact-cta {
   position: relative;
   display: inline-flex;
-  border-radius: 999px;
+  justify-content: center;
+  align-items: center;
   text-decoration: none;
   color: hsl(var(--text));
-  padding: 0.85rem 1.6rem;
-  border: 1px solid hsl(var(--stroke));
-  background: hsl(var(--surface));
 }
 
-.contact-inner .contact-cta.btn {
-  --bs-btn-padding-x: 1.6rem;
-  --bs-btn-padding-y: 0.85rem;
-  --bs-btn-border-width: 1px;
-  --bs-btn-font-size: inherit;
-  --bs-btn-font-weight: 400;
-  --bs-btn-line-height: 1.2;
-  --bs-btn-box-shadow: none;
-  --bs-btn-focus-box-shadow: none;
-  --bs-btn-active-box-shadow: none;
-  --bs-btn-bg: hsl(var(--surface));
-  --bs-btn-border-color: hsl(var(--stroke));
-  --bs-btn-color: hsl(var(--text));
-  --bs-btn-hover-bg: hsl(var(--surface));
-  --bs-btn-hover-border-color: hsl(var(--stroke));
-  --bs-btn-hover-color: hsl(var(--text));
-  --bs-btn-active-bg: hsl(var(--surface));
-  --bs-btn-active-border-color: hsl(var(--stroke));
-  --bs-btn-active-color: hsl(var(--text));
-  display: inline-flex;
+// Uiverse StealthWorm/spotty-horse-48 - MIT, adapted for email CTA
+.contact-cta--cosmic {
+  padding: 2px;
+  border-radius: 5rem;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+  background: linear-gradient(
+    137.48deg,
+    #ffdb3b 10%,
+    #fe53bb 45%,
+    #8f51ea 67%,
+    #0044ff 87%
+  );
+  background-size: 300% 300%;
+  animation: contact-cta-gradient 5s ease infinite;
+  border: none;
+  &:hover {
+    transform: scale(1.06);
+  }
+
+  &:active {
+    transform: scale(1.02);
+    animation: none;
+    background: #fe53bb;
+
+    .contact-cta__glow-circle {
+      background: #fe53bb;
+    }
+  }
+}
+
+.contact-cta__inner {
+  position: relative;
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.85rem 1.6rem;
-  border: 1px solid hsl(var(--stroke));
-  background: hsl(var(--surface));
-  color: hsl(var(--text));
-  text-decoration: none;
-  border-radius: 999px;
-  box-shadow: none;
+  min-height: calc(3rem - 8px);
+  padding: 0 1.75rem;
+  border-radius: calc(5rem - 4px);
+  background: #212121;
+  overflow: hidden;
 }
 
-.contact-inner .contact-cta.btn:hover,
-.contact-inner .contact-cta.btn:focus,
-.contact-inner .contact-cta.btn:active {
-  background: hsl(var(--surface));
-  color: hsl(var(--text));
-  border-color: hsl(var(--stroke));
+.contact-cta__label {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(0.72rem, 2.2vw, 0.85rem);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #fff;
+  text-shadow: 0 0 4px rgb(255 255 255 / 0.85);
+}
+
+.contact-cta__stars {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  transition: opacity 0.5s ease;
+}
+
+.contact-cta__stars-field {
+  position: relative;
+  display: block;
+  width: 200rem;
+  height: 200rem;
+  background: transparent;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    background-image: radial-gradient(#fff 1px, transparent 1%);
+    background-size: 50px 50px;
+  }
+
+  &::before {
+    top: 0;
+    left: -50%;
+    width: 170%;
+    height: 500%;
+    opacity: 0.5;
+    animation: contact-cta-stars-drift 60s linear infinite;
+  }
+
+  &::after {
+    top: -10rem;
+    left: -100rem;
+    width: 100%;
+    height: 100%;
+    animation: contact-cta-stars-rotate 90s linear infinite;
+  }
+}
+
+.contact-cta__glow {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  display: flex;
+  width: 12rem;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.contact-cta__glow-circle {
+  width: 100%;
+  height: 30px;
+  filter: blur(2rem);
+  animation: contact-cta-glow-pulse 4s infinite;
+  z-index: -1;
+
+  &:nth-of-type(1) {
+    background: rgb(254 83 186 / 0.64);
+  }
+
+  &:nth-of-type(2) {
+    background: rgb(142 81 234 / 0.7);
+  }
+}
+
+@keyframes contact-cta-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes contact-cta-stars-drift {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-135rem);
+  }
+}
+
+@keyframes contact-cta-stars-rotate {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes contact-cta-glow-pulse {
+  0% {
+    transform: scale(0.75);
+    box-shadow: 0 0 0 0 rgb(0 0 0 / 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgb(0 0 0 / 0);
+  }
+
+  100% {
+    transform: scale(0.75);
+    box-shadow: 0 0 0 0 rgb(0 0 0 / 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-cta--cosmic {
+    animation: none;
+    background-size: auto;
+
+    &:hover {
+      transform: none;
+    }
+
+    &:active {
+      transform: none;
+    }
+  }
+
+  .contact-cta__stars-field::before,
+  .contact-cta__stars-field::after,
+  .contact-cta__glow-circle {
+    animation: none;
+  }
 }
 
 .marquee-wrap {

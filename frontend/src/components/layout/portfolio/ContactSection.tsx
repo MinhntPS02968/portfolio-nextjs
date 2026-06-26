@@ -37,10 +37,24 @@ export default function ContactSection() {
             </div>
             <div className="container contact-inner text-center">
                 <a
-                    className="contact-cta btn rounded-pill"
+                    className="contact-cta contact-cta--cosmic"
                     href="mailto:minhnguyen942611@gmail.com"
                 >
-                    minhnguyen942611@gmail.com
+                    <span className="contact-cta__inner">
+                        <span
+                            className="contact-cta__stars"
+                            aria-hidden="true"
+                        >
+                            <span className="contact-cta__stars-field" />
+                        </span>
+                        <span className="contact-cta__glow" aria-hidden="true">
+                            <span className="contact-cta__glow-circle" />
+                            <span className="contact-cta__glow-circle" />
+                        </span>
+                        <strong className="contact-cta__label">
+                            minhnguyen942611@gmail.com
+                        </strong>
+                    </span>
                 </a>
                 <div className="footer-bar d-flex flex-wrap justify-content-between align-items-center gap-3">
                     <div className="footer-links d-inline-flex flex-wrap gap-3">
